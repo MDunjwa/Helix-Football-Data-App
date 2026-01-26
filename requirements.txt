@@ -5,3 +5,5 @@
 
 jupyterlab
 ipykernel
+kagglehub==0.4.1
+kagglehub[pandas-datasets]
