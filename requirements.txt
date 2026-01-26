@@ -4,3 +4,4 @@
 # have to be specified like this
 
 jupyterlab
+ipykernel
