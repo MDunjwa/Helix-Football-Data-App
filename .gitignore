@@ -1,1 +1,12 @@
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
 myenvironment/
+menv/
+*/venv/
+*/.venv/
+
+# Notebooks
+.ipynb_checkpoints/
