@@ -4,7 +4,7 @@ venv/
 env/
 .env/
 myenvironment/
-menv/
+myenv/
 */venv/
 */.venv/
 
