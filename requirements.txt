@@ -10,3 +10,6 @@ kagglehub[pandas-datasets]
 pandas
 tabulate
 ipywidgets
+
+Flask
+flask-cors
