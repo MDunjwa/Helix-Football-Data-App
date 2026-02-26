@@ -23,18 +23,26 @@ fetchTopScorers()
 
 function createChart(names, goals) {
 
-    // Getting the canvas element
-    const context = document.getElementById('top_scorers').getContext('2d');
+    // Initialising ECharts
+    const chartDom = document.getElementById("top_scorers")
+    const myChart = echarts.init(chartDom)
 
-    // Creating the chart
-    new Chart(context, {
-        type: "bar",
-        data: {
-            labels: names,
-            datasets: [{
-                label: "Goals",
-                data: goals
-            }]
-        }
-    })
+    // My chart configuration
+    const option = {
+        xAxis: {
+            type: "category",
+            data: names
+        },
+        yAxis: {
+            type: "value",
+        },
+        series: [{
+            type: "bar",
+            data: goals
+        }]
+    }
+
+    // Applying the configuration
+    myChart.setOption(option)
+    
 }
