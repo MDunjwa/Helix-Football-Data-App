@@ -27,7 +27,7 @@ function createChart(names, goals) {
     const context = document.getElementById('top_scorers').getContext('2d');
 
     // Creating the chart
-    new CharacterData(context, {
+    new Chart(context, {
         type: "bar",
         data: {
             labels: names,
