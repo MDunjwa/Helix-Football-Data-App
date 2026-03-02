@@ -1,0 +1,24 @@
+/* Colour variables so it's easier to reference my chosen palette */
+
+:root {
+    --bg-base: #ECF0F1; /*Platinum for my background*/
+    --text-primary: #1F2933; /*Jet Black for my primary text*/
+    --text-secondary: #334155;  /*Charcoal Blue for text*/
+    --ui-structure: #334155; /*Charcoal Blue for nav/panels*/
+    --accent-blue: #6C91C2; /*Dusty Denim; interactive e.g. links; buttons*/
+    --accent-blue-hover: #5679A8; /*Darker blue for hovering*/
+    --alert-red: #C0392B; /*Tomato Jam for errors and negative metrics8*/
+}
+
+/* Base styles */
+
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-secondary);
+}
+
+h1, h2, h3 {
+    color: var(--text-primary);
+}
