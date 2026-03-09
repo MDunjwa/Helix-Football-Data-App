@@ -5,23 +5,65 @@
         <!-- Loading Inter typeface -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        <title>Premier League Scouting Dashboard</title>
+        <!-- Styling -->
+        <!-- Boostrap CDN Link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootsrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">        
+        <!-- My CSS -->
+        <link rel="stylesheet" href="styles.css">
+
+        <title>Helix Dashboard</title>
 
     </head>
     <body>  
 
-        <!-- Styling -->
+        <!-- Elements -->
 
-        <!-- Boostrap CDN Link -->
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-         <!-- Bootsrap Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">        
-        <!-- My CSS -->
-         <link rel="stylesheet" href="styles.css">
+        <div id="app" class="d-flex"> <!--making a flexbox container which will contain child elements whose alignment, order etc we can control-->
+            <!-- Sidebar nav -->
+            <div class="bg-light border-end" style="width: 250px;">
+                
+                <div class="p-3">
+                    <h4>Helix</h4>
+                </div>
 
-         <!-- Elements -->
+                <ul class="nav flex-column px-2"> <!--flex column to stack vertically-->
 
-         <!-- Sidebar nav -->
+                    <li class="nav-item">
+                        <a class="nav-link active py-2" href="#">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link py-2" href="#">Leaderboards</a>
+                    </li>            
+                    
+                    <li class="nav-item">
+                        <a class="nav-link py-2" href="#">Visualize</a>
+                    </li>         
+                    
+                    <li class="nav-item">
+                        <a class="nav-link py-2" href="#">Find players</a>
+                    </li>    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link py-2" href="#">Compare</a>
+                    </li>                    
+
+                    <li class="nav-item">
+                        <a class="nav-link py-2" href="#">About</a>
+                    </li>                    
+                </ul>
+
+            </div>
+
+            <!-- Main content -->
+            <div class="flex-grow-1 p-4"> <!--padding and spacing-->
+                Main content
+            </div>
+
+        </div>
+        
           
 
     </body>
