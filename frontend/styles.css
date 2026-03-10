@@ -72,3 +72,11 @@ h1, h2, h3 {
     color: var(--bg-base);
     font-weight: 500;
 }
+
+/* MAIN CONTENT */
+
+#main-content {
+    flex: 1;
+    background-color: var(--bg-base);
+    color: var(--text-secondary);
+}
