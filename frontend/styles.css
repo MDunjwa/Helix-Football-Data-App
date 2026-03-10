@@ -10,15 +10,65 @@
     --alert-red: #C0392B; /*Tomato Jam for errors and negative metrics8*/
 }
 
-/* Base styles */
+/* BASE STYLES */
 
-body {
+/* Base for everything */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: var(--bg-base);
-    color: var(--text-secondary);
 }
+
+/* Making the app stretch all the way */
+body, html {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
 
 h1, h2, h3 {
     color: var(--text-primary);
+}
+
+/* LOGO */
+
+.custom-sidebar h4 {
+    color: var(--bg-base);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* SIDEBAR */
+
+.custom-sidebar {
+    height: 100%;
+    width: 250px;
+    background-color: var(--ui-structure); 
+    display: flex; /* enabling flexbox layoutc */
+    flex-direction: column; /* ensuring children are layed out vertically */
+    flex-shrink: 0; /* preventing sidebar doesn't shrink if main content becomes too large */    
+}
+
+/* Nav link default state */
+.custom-sidebar .nav-link {
+    color: var(--bg-base);
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Transition settings for when user hovers*/
+}
+
+/* Nav link hover state */
+.custom-sidebar .nav-link:hover {
+    background-color: var(--text-primary); /* Button background goes one shade darker*/ 
+    color: var(--bg-base);
+}
+
+/* Active page */
+.custom-sidebar .nav-link.active {
+    background-color: var(--accent-blue);
+    color: var(--bg-base);
+    font-weight: 500;
 }
