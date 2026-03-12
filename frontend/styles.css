@@ -152,14 +152,30 @@ h1, h2, h3 {
     min-height: 100vh;
 }
  
-.hero-features  {  
+/* .hero-features  {  
     margin-top: 20px;
     color: var(--bg-base);
     font-size: 17px;
     opacity: 0.7;
     max-width: 420px;
     line-height: 1.6;
- }
+ } */
+
+ /* Bullet points */
+
+.hero-features {
+    margin-top: 24px;
+}
+
+.hero-features li {
+    color: var(--bg-base);
+    opacity: 0.5;
+    font-size: 15px;
+    margin-bottom: 8px;
+    padding-left: 14px;
+    position: relative;    
+}
+
 
 /* #pitch-svg {
     width: 100%;
