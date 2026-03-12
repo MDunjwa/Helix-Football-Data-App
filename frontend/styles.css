@@ -143,7 +143,7 @@ h1, h2, h3 {
 #hero-right {
     flex-grow: 0; /* Ensuring that it never expands */
     flex-shrink: 0;     /* Ensuring that it never shrinks */
-    flex-basis: 1600px; /* Fixed width */
+    flex-basis: 40%; /* Fixed width */
     
     display: flex;
     align-items: center;
