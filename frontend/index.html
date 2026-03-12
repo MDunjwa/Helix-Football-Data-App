@@ -74,24 +74,71 @@
             <div id="main-content" class="flex-grow-1"> <!--padding and spacing-->
 
                 <section id="hero">
-                    <div id="hero-text">
-                        <h1>Premier League.<br>Every player.</h1>
-                        <p>Explore stats, discover talent, and compare players across the entire Premier League season.</p>
+                    <!-- Left column of hero -->
+                     <div id="hero-left">
+                        <div id="hero-text">
+                            <h1>Premier League.<br>Every player.</h1>
+                            <p>Explore stats, discover talent, and compare players across the entire Premier League season.</p>
+                        </div>
+                        <div id="hero-stats">
+                            <div class="stat">
+                                <span class="stat-value">800</span>
+                                <span class="stat-label">Players</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">22</span>
+                                <span class="stat-label">Teams</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4</span>
+                                <span class="stat-label">Positions</span>
+                            </div>
+                        </div> 
+                     </div>
+                    <!-- Right column of hero -->
+                    <div id="hero-right">
+
+                        <!-- Football pitch svg -->
+                        <svg id="pitch-svg" viewBox="0 0 320 480" xmlns="http://www.w3.org/2000/svg">  <!-- viewBox specs in the format viewBox = minX minY width height -->
+
+                            <!-- rect format: x & y of top left corner; width, height, corner radius (rounding), fil, colour, line width -->
+                            <!-- line format: same minus but use end coordinate instead of width and height -->
+                            <!-- circle formt: x and y position of center, radius, etc...  -->
+
+                            <!-- Outer pitch rectangle -->                            
+                            <rect x="20" y="20" width="280" height="440" rx="3"
+                                fill="none" stroke="rgba(108,145,194,0.25)" stroke-width="1.5"/>
+
+                            <!-- Halfway line -->
+                            <line x1="20" y1="240" x2="300" y2="240"
+                                stroke="rgba(108,145,194,0.25)" stroke-width="1.5"/>
+
+                            <!-- Centre circle -->
+                            <circle cx="160" cy="240" r="45"
+                                    fill="none" stroke="rgba(108,145,194,0.25)" stroke-width="1.5"/>
+
+                            <!-- Centre spot -->
+                            <circle cx="160" cy="240" r="2.5"
+                                    fill="rgba(108,145,194,0.4)"/>
+
+                            <!-- Top penalty area -->
+                            <rect x="75" y="20" width="170" height="65" rx="2"
+                                fill="none" stroke="rgba(108,145,194,0.2)" stroke-width="1.5"/>
+
+                            <!-- Top 6-yard box -->
+                            <rect x="115" y="20" width="90" height="25" rx="1"
+                                fill="none" stroke="rgba(108,145,194,0.15)" stroke-width="1"/>
+
+                            <!-- Bottom penalty area - starts at 395, ends at 460 (pitch boundary) -->
+                            <rect x="75" y="395" width="170" height="65" rx="2"
+                                fill="none" stroke="rgba(108,145,194,0.2)" stroke-width="1.5"/>
+
+                            <!-- Bottom 6-yard box -->
+                            <rect x="115" y="435" width="90" height="25" rx="1"
+                                fill="none" stroke="rgba(108,145,194,0.15)" stroke-width="1"/>
+
+                        </svg>
                     </div>
-                    <div id="hero-stats">
-                        <div class="stat">
-                            <span class="stat-value">800</span>
-                            <span class="stat-label">Players</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">2</span>
-                            <span class="stat-label">Teams</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">4</span>
-                            <span class="stat-label">Positions</span>
-                        </div>
-                    </div>                    
                 </section>                    
             
             </div>

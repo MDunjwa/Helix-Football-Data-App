@@ -85,12 +85,10 @@ h1, h2, h3 {
 
 #hero {
     background-color: var(--text-primary);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: flex-start ;
-    padding: 64px;
+    flex-direction: row;
+    align-items: stretch;
 }
 
 #hero-text h1 {
@@ -132,4 +130,37 @@ h1, h2, h3 {
     margin-top: 4px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+}
+
+#hero-left {
+    flex: 1; /* So it takes up all available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 64px;    
+}
+
+#hero-right {
+    flex-grow: 0; /* Ensuring that it never expands */
+    flex-shrink: 0;     /* Ensuring that it never shrinks */
+    flex-basis: 1600px; /* Fixed width */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 48px;
+    min-height: 100vh;
+}
+
+/* #pitch-svg {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 320 / 480;
+/* } */
+
+#pitch-svg {
+    height: 80vh;
+    width: auto;
+    max-width: 100%;
 }
