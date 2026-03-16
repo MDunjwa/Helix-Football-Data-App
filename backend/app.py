@@ -58,6 +58,7 @@ def top_scorers():
         # For when position is specified, appending to the query so that I filter to only that position
         if position:
             query += f" AND positionAbbreviation = ?"
+            query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
             df = pd.read_sql_query(query, conn, params=[position])
         
         # Sorting
