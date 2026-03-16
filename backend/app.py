@@ -7,7 +7,7 @@ import os
 # Creating a flask app instance
 app = Flask(__name__)
 # Accommodating cross-origin requests globally
-CORS(app)
+CORS(app, origins="*")
 
 # Database absolute path setup
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +49,7 @@ def top_scorers():
                 totalGoals_value,
                 goalAssists_value,
                 appearances_value,
+                totalShots_value,
                 shot_accuracy,
                 conversion_rate
             FROM players 

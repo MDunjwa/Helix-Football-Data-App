@@ -46,3 +46,53 @@
     color: var(--accent-blue);
     border-bottom: 2px solid var(--accent-blue);
 }
+
+/* Table */
+#leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+/* Header row */
+#leaderboard-table thead tr {
+    border-bottom: 2px solid rgba(51, 65, 85, 0.15);
+}
+
+#leaderboard-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    white-space: nowrap; 
+}
+
+/* Data rows */
+#leaderboard-table td {
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.08);
+    white-space: nowrap;
+}
+
+/* Row hover state */
+#leaderboard-table tbody tr:hover {
+    background-color: rgba(108, 145, 194, 0.05);
+}
+
+/* Slightly muting number column */
+#leaderboard-table td:first-child {
+    color: var(--text-secondary);
+    opacity: 0.4;
+    font-size: 13px;
+}
+
+/* Making playher name bolder */
+#leaderboard-table td:nth-child(2) {
+    font-weight: 500;
+    color: var(--text-primary);
+}
