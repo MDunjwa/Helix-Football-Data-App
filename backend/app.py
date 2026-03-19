@@ -73,5 +73,43 @@ def top_scorers():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+# Assisters endpoint
+@app.route('/api/stats/top-assisters')
+def assisters():
+    limit = request.args.get('limit', 10, type=int)
+    position = request.args.get('position', type=str)
+
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        query = """
+            SELECT
+                athleteId,
+                fullName,
+                positionAbbreviation,
+                teamName,
+                goalAssists_value,
+                totalGoals_value,
+                appearances_value,
+                citizenship
+            FROM players
+            WHERE goalAssists_value > 0               
+            """
+        if position:
+            query += f" AND positionAbbreviation = ?"
+            query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
+            df = pd.read_sql_query(query, conn, params=[position])
+        
+        query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
+        
+        df = pd.read_sql_query(query, conn)
+        conn.close()
+        
+        return jsonify(df.to_dict('records'))
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500        
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
