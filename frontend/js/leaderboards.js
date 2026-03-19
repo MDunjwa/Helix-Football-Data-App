@@ -1,6 +1,6 @@
 async function fetchTopScorers() {
     try {
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -23,10 +23,34 @@ async function fetchTopScorers() {
 function renderTable(data, type) { //data is my array, type is the type of stat (scorer, assist etc)
     
     // Table headers
-    const headers = ["#", "Player", "Team", "Position", "Goals", "Assists", "Games", "Shots", "Accuracy", "Conversion"];
+    const headers = [
+    { label: "#" },
+    { label: "Player" },
+    { label: "Team" },
+    { label: "Position" },
+    { label: "Goals" },
+    { label: "Assists" },
+    { label: "Games" },
+    { label: "Shots" },
+    { label: "Accuracy", tooltip: "Shots on target divided by total shots taken" },
+    { label: "Conversion", tooltip: "Goals scored divided by total shots taken" }
+                    ];
 
     // Header html
-    const headerHTML = headers.map(h => `<th>${h}</th>`).join("");
+    // const headerHTML = headers.map(h => `<th>${h}</th>`).join("");
+    const headerHTML = headers.map(h => {
+        if (h.tooltip) {
+            return `
+            <th>
+                ${h.label}
+                <span class="tooltip-container">
+                    <i class="bi bi-info-circle tooltip-icon"></i>
+                    <span class="tooltip-text">${h.tooltip}</span>
+                </span>
+            </th>`
+        }
+        return `<th>${h.label}</th>`;
+    }).join("");
 
     // Rows
     const rowsHTML = data.map((player, index) => `
