@@ -110,6 +110,35 @@ def assisters():
     except Exception as e:
         return jsonify({"error": str(e)}), 500        
 
+# Goalkeepers endpoint
+@app.route('/api/stats/top-goalkeepers')
+def goalkeepers():
+    limit = request.args.get('limit', 10, type=int)
 
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        query = """
+            SELECT                
+                fullName,                
+                teamName,
+                citizenship,
+                appearances_value,
+                shotsFaced_value,
+                saves_value,
+                goalsConceded_value,
+                save_percentage               
+            FROM players
+            WHERE positionAbbreviation = "G" AND appearances_value >= 5
+            """
+
+        query += f" ORDER BY save_percentage DESC LIMIT {limit}"                
+        df = pd.read_sql_query(query, conn)
+        conn.close()
+        
+        return jsonify(df.to_dict('records'))
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  
+    
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
