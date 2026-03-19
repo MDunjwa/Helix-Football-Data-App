@@ -5,14 +5,6 @@ async function fetchTopScorers() {
         console.log("Data received:", data)
         renderTable(data, "scorers");
 
-        // const names = data.map(player => player.fullName)
-        // const goals = data.map(player => player.totalGoals_value)
-
-        // createChart(names, goals)
-
-        // console.log("Names:", names)
-        // console.log("Goals:", goals)
-
         return data;
     } catch (error) {
         console.error("Failed to fetch:", error);
@@ -20,7 +12,10 @@ async function fetchTopScorers() {
     }
 }
 
+
+
 function renderTable(data, type) { //data is my array, type is the type of stat (scorer, assist etc)
+    
     
     // Table headers
     const headers = [
@@ -78,6 +73,26 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
 }
 
 fetchTopScorers()
+
+// Tab switching
+document.querySelectorAll(".tab-btn").forEach(button =>  {
+
+    button.addEventListener("click", function() {
+        
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        
+        this.classList.add("active")
+
+        const tab = this.dataset.tab;
+
+        if (tab==="scorers") fetchTopScorers();
+        if (tab==="assisters") fetchTopAssisters();
+        if (tab==="goalkeepers") fetchTopGoalkeepers();
+
+    }
+        );
+    })
+
 
 // function createChart(names, goals) {
 
