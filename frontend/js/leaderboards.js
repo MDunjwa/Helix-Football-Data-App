@@ -12,56 +12,112 @@ async function fetchTopScorers() {
     }
 }
 
+async function fetchTopAssisters() {
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
+        const data = await response.json();
+        console.log("Data received:", data)
+        renderTable(data, "assisters");
+
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch:", error);
+        return null;
+    }
+}
+
+async function fetchTopGoalkeepers() {
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
+        const data = await response.json();
+        console.log("Data received:", data)
+        renderTable(data, "goalkeepers");
+
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch:", error);
+        return null;
+    }
+}
+
+
 
 
 function renderTable(data, type) { //data is my array, type is the type of stat (scorer, assist etc)
     
-    
-    // Table headers
-    const headers = [
-    { label: "#" },
-    { label: "Player" },
-    { label: "Team" },
-    { label: "Position" },
-    { label: "Goals" },
-    { label: "Assists" },
-    { label: "Games" },
-    { label: "Shots" },
-    { label: "Accuracy", tooltip: "Shots on target divided by total shots taken" },
-    { label: "Conversion", tooltip: "Goals scored divided by total shots taken" }
-                    ];
+    let headerHTML = "";
+    let rowsHTML = "";
 
-    // Header html
-    // const headerHTML = headers.map(h => `<th>${h}</th>`).join("");
-    const headerHTML = headers.map(h => {
-        if (h.tooltip) {
-            return `
-            <th>
-                ${h.label}
-                <span class="tooltip-container">
-                    <i class="bi bi-info-circle tooltip-icon"></i>
-                    <span class="tooltip-text">${h.tooltip}</span>
-                </span>
-            </th>`
-        }
-        return `<th>${h.label}</th>`;
-    }).join("");
+    if (type === "scorers") {
 
-    // Rows
-    const rowsHTML = data.map((player, index) => `
-        <tr>
-            <td>${index + 1}</td>
-            <td>${player.fullName}</td>
-            <td>${player.teamName}</td>
-            <td>${player.positionAbbreviation}</td>
-            <td>${player.totalGoals_value}</td>
-            <td>${player.goalAssists_value}</td>
-            <td>${player.appearances_value}</td>
-            <td>${player.totalShots_value ?? "—"}</td>
-            <td>${player.shot_accuracy != null ? (player.shot_accuracy * 100).toFixed(1) + "%" : "—"}</td>
-            <td>${player.conversion_rate != null ? (player.conversion_rate * 100).toFixed(1) + "%" : "—"}</td>
-        </tr>
-    `).join("");
+        // Table headers
+        const headers = [
+        { label: "#" },
+        { label: "Player" },
+        { label: "Team" },
+        { label: "Position" },
+        { label: "Goals" },
+        { label: "Assists" },
+        { label: "Games" },
+        { label: "Shots" },
+        { label: "Accuracy", tooltip: "Shots on target divided by total shots taken" },
+        { label: "Conversion", tooltip: "Goals scored divided by total shots taken" }
+                        ];
+
+        // Header html
+        // const headerHTML = headers.map(h => `<th>${h}</th>`).join("");
+        headerHTML = headers.map(h => {
+            if (h.tooltip) {
+                return `
+                <th>
+                    ${h.label}
+                    <span class="tooltip-container">
+                        <i class="bi bi-info-circle tooltip-icon"></i>
+                        <span class="tooltip-text">${h.tooltip}</span>
+                    </span>
+                </th>`
+            }
+            return `<th>${h.label}</th>`;
+        }).join("");
+
+        // Rows
+        rowsHTML = data.map((player, index) => `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${player.fullName}</td>
+                <td>${player.teamName}</td>
+                <td>${player.positionAbbreviation}</td>
+                <td>${player.totalGoals_value}</td>
+                <td>${player.goalAssists_value}</td>
+                <td>${player.appearances_value}</td>
+                <td>${player.totalShots_value ?? "—"}</td>
+                <td>${player.shot_accuracy != null ? (player.shot_accuracy * 100).toFixed(1) + "%" : "—"}</td>
+                <td>${player.conversion_rate != null ? (player.conversion_rate * 100).toFixed(1) + "%" : "—"}</td>
+            </tr>
+        `).join("");        
+    }
+
+    else if (type === "assisters") {
+        
+        // Assist table headers
+        const headers = ["#","Player","Team","Assists","Goals","Appearances","Nationality"];
+        headerHTML = headers.map(h => `<th>${h}</th>`).join("");
+
+        // Assist table rows
+        rowsHTML = data.map((player, index) => `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${player.fullName}</td>
+                <td>${player.teamName}</td>
+                <td>${player.goalAssists_value}</td>
+                <td>${player.totalGoals_value}</td>
+                <td>${player.appearances_value}</td>
+                <td>${player.citizenship}</td>            
+            </tr>
+        `).join("");    }
+
 
     // Sending the data to the webpage
     document.getElementById("table-container").innerHTML = `
