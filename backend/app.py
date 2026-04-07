@@ -39,13 +39,16 @@ def top_scorers():
     try:
         conn = sqlite3.connect(DB_PATH)
         
-        # SQL query for 9 columns I need instead of all of them. Faster
+        # SQL query for columns I need instead of all of them. Faster
         query = """
             SELECT 
                 athleteId,
                 fullName, 
                 positionAbbreviation, 
                 teamName,
+                teamLogo,
+                teamPrimaryColor,
+                teamSecondaryColor,
                 totalGoals_value,
                 goalAssists_value,
                 appearances_value,
@@ -63,10 +66,10 @@ def top_scorers():
             query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
             df = pd.read_sql_query(query, conn, params=[position])
         
-        # Sorting
-        query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
+        else:
+            query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
+            df = pd.read_sql_query(query, conn)
         
-        df = pd.read_sql_query(query, conn)
         conn.close()
         
         return jsonify(df.to_dict('records'))
@@ -89,6 +92,9 @@ def assisters():
                 fullName,
                 positionAbbreviation,
                 teamName,
+                teamLogo,
+                teamPrimaryColor,
+                teamSecondaryColor,
                 goalAssists_value,
                 totalGoals_value,
                 appearances_value,
@@ -101,9 +107,10 @@ def assisters():
             query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
             df = pd.read_sql_query(query, conn, params=[position])
         
-        query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
+        else:
+            query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
+            df = pd.read_sql_query(query, conn)
         
-        df = pd.read_sql_query(query, conn)
         conn.close()
         
         return jsonify(df.to_dict('records'))
@@ -122,6 +129,9 @@ def goalkeepers():
             SELECT                
                 fullName,                
                 teamName,
+                teamLogo,
+                teamPrimaryColor,
+                teamSecondaryColor,
                 citizenship,
                 appearances_value,
                 shotsFaced_value,
