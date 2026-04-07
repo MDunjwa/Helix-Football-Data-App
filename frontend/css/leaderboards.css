@@ -55,17 +55,20 @@
     table-layout: fixed; 
 }
 
-/* Each th gets a defined width */
-#leaderboard-table th:nth-child(1) { width: 4%; }   /* # */
-#leaderboard-table th:nth-child(2) { width: 18%; }  /* Player */
-#leaderboard-table th:nth-child(3) { width: 16%; }  /* Team */
-#leaderboard-table th:nth-child(4) { width: 7%; }   /* Position */
-#leaderboard-table th:nth-child(5) { width: 7%; }   /* Goals */
-#leaderboard-table th:nth-child(6) { width: 7%; }   /* Assists */
-#leaderboard-table th:nth-child(7) { width: 7%; }   /* Games */
-#leaderboard-table th:nth-child(8) { width: 7%; }   /* Shots */
-#leaderboard-table th:nth-child(9) { width: 7%; }  /* Accuracy */
-#leaderboard-table th:nth-child(10) { width: 13%; } /* Conversion */
+/* Table width for scorers */
+.table-scorers th:nth-child(1) { width: 5%; }   /* # */
+.table-scorers th:nth-child(2) { width: 12%; }  /* Player */
+.table-scorers th:nth-child(3) { width: 17%; }  /* Team */
+
+
+/* Table width for assisters */
+.table-assisters th:nth-child(1) { width: 5%; }
+.table-assisters th:nth-child(2) { width: 12%; }
+.table-assisters th:nth-child(3) { width: 17%; }
+/* /* .table-assisters th:nth-child(4) { width: 14%; } 
+.table-assisters th:nth-child(5) { width: 14%; }
+.table-assisters th:nth-child(6) { width: 15%; }
+.table-assisters th:nth-child(7) { width: 15%; } */
 
 /* Header row */
 #leaderboard-table thead tr {
@@ -82,6 +85,9 @@
     color: var(--text-secondary);
     opacity: 0.6;
     white-space: nowrap; 
+    /* Preventing unsightly overflow */
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 /* Data rows */

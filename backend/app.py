@@ -49,6 +49,7 @@ def top_scorers():
                 totalGoals_value,
                 goalAssists_value,
                 appearances_value,
+                citizenship,
                 totalShots_value,
                 shot_accuracy,
                 conversion_rate

@@ -60,10 +60,11 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
         { label: "Position" },
         { label: "Goals" },
         { label: "Assists" },
-        { label: "Games" },
+        { label: "Appearances" },
         { label: "Shots" },
         { label: "Accuracy", tooltip: "Shots on target divided by total shots taken" },
-        { label: "Conversion", tooltip: "Goals scored divided by total shots taken" }
+        { label: "Conversion", tooltip: "Goals scored divided by total shots taken" },
+        { label: "Nationality" }
                         ];
 
         // Header html
@@ -95,6 +96,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
                 <td>${player.totalShots_value ?? "—"}</td>
                 <td>${player.shot_accuracy != null ? (player.shot_accuracy * 100).toFixed(1) + "%" : "—"}</td>
                 <td>${player.conversion_rate != null ? (player.conversion_rate * 100).toFixed(1) + "%" : "—"}</td>
+                <td>${player.citizenship}</td>
             </tr>
         `).join("");        
     }
@@ -102,7 +104,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
     else if (type === "assisters") {
         
         // Assist table headers
-        const headers = ["#","Player","Team","Assists","Goals","Appearances","Nationality"];
+        const headers = ["#","Player","Team","Position", "Assists","Goals","Appearances","Nationality"];
         headerHTML = headers.map(h => `<th>${h}</th>`).join("");
 
         // Assist table rows
@@ -111,6 +113,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
                 <td>${index + 1}</td>
                 <td>${player.fullName}</td>
                 <td>${player.teamName}</td>
+                <td>${player.positionAbbreviation}</td>
                 <td>${player.goalAssists_value}</td>
                 <td>${player.totalGoals_value}</td>
                 <td>${player.appearances_value}</td>
@@ -121,7 +124,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
 
     // Sending the data to the webpage
     document.getElementById("table-container").innerHTML = `
-        <table id="leaderboard-table">
+        <table id="leaderboard-table" class="table-${type}">
             <thead><tr>${headerHTML}</tr></thead>
             <tbody>${rowsHTML}</tbody>
         </table>        
