@@ -7,7 +7,9 @@ import os
 # Creating a flask app instance
 app = Flask(__name__)
 # Accommodating cross-origin requests globally
-CORS(app, origins="*")
+# CORS(app, origins="*")
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 
 # Database absolute path setup
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -69,6 +71,7 @@ def top_scorers():
         else:
             query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
             df = pd.read_sql_query(query, conn)
+            print("Scorers columns:", df.columns)
         
         conn.close()
         

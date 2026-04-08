@@ -1,6 +1,7 @@
 async function fetchTopScorers() {
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
+        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
+        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -15,7 +16,8 @@ async function fetchTopScorers() {
 async function fetchTopAssisters() {
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
+        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
+        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "assisters");
@@ -30,7 +32,8 @@ async function fetchTopAssisters() {
 async function fetchTopGoalkeepers() {
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
+        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
+        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "goalkeepers");
@@ -88,7 +91,15 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
             <tr>
                 <td>${index + 1}</td>
                 <td>${player.fullName}</td>
-                <td>${player.teamName}</td>
+                <td class="team-cell">
+                    <img 
+                        src="${player.teamLogo}" 
+                        alt="${player.teamName}" 
+                        title="${player.teamName}"
+                        class="team-logo"
+                    >
+                    <span class="team-name">${player.teamName}</span>
+                </td>                
                 <td>${player.positionAbbreviation}</td>
                 <td>${player.totalGoals_value}</td>
                 <td>${player.goalAssists_value}</td>
@@ -112,7 +123,15 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
             <tr>
                 <td>${index + 1}</td>
                 <td>${player.fullName}</td>
-                <td>${player.teamName}</td>
+                <td class="team-cell">
+                    <img 
+                        src="${player.teamLogo}" 
+                        alt="${player.teamName}" 
+                        title="${player.teamName}"
+                        class="team-logo"
+                    >
+                    <span class="team-name">${player.teamName}</span>
+                </td>
                 <td>${player.positionAbbreviation}</td>
                 <td>${player.goalAssists_value}</td>
                 <td>${player.totalGoals_value}</td>

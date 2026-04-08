@@ -154,3 +154,20 @@
 .tooltip-container:hover .tooltip-text {
     visibility: visible;
 }
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 120px;
+}
+
+.team-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.team-name {
+    font-size: 0.9rem;
+}
