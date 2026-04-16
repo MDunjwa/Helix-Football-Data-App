@@ -52,23 +52,32 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
-    table-layout: fixed; 
+    /* table-layout: fixed;  */
 }
 
 /* Table width for scorers */
-.table-scorers th:nth-child(1) { width: 5%; }   /* # */
-.table-scorers th:nth-child(2) { width: 12%; }  /* Player */
-.table-scorers th:nth-child(3) { width: 17%; }  /* Team */
-
+.table-scorers th:nth-child(1) { width: 4%; }   /* # */
+.table-scorers th:nth-child(2) { width: 16%; }  /* Player */
+.table-scorers th:nth-child(3) { width: 18%; }  /* Team */
+.table-scorers th:nth-child(4) { width: 6%; }   /* Position */
+.table-scorers th:nth-child(5) { width: 7%; }   /* Goals */
+.table-scorers th:nth-child(6) { width: 7%; }   /* Assists */
+.table-scorers th:nth-child(7) { width: 8%; }   /* Appearances */
+.table-scorers th:nth-child(8) { width: 7%; }   /* Shots */
+.table-scorers th:nth-child(9) { width: 9%; }   /* Accuracy */
+.table-scorers th:nth-child(10){ width: 10%; }  /* Conversion */
+.table-scorers th:nth-child(11){ width: 12%; }  /* Nationality */
 
 /* Table width for assisters */
-.table-assisters th:nth-child(1) { width: 5%; }
-.table-assisters th:nth-child(2) { width: 12%; }
-.table-assisters th:nth-child(3) { width: 17%; }
-/* /* .table-assisters th:nth-child(4) { width: 14%; } 
-.table-assisters th:nth-child(5) { width: 14%; }
-.table-assisters th:nth-child(6) { width: 15%; }
-.table-assisters th:nth-child(7) { width: 15%; } */
+
+.table-assisters th:nth-child(1) { width: 5%; }   /* # */
+.table-assisters th:nth-child(2) { width: 18%; }  /* Player */
+.table-assisters th:nth-child(3) { width: 20%; }  /* Team */
+.table-assisters th:nth-child(4) { width: 10%; }  /* Position */
+.table-assisters th:nth-child(5) { width: 8%; }   /* Assists */
+.table-assisters th:nth-child(6) { width: 8%; }   /* Goals */
+.table-assisters th:nth-child(7) { width: 10%; }  /* Apps */
+.table-assisters th:nth-child(8) { width: 12%; }  /* Nationality */
 
 /* Header row */
 #leaderboard-table thead tr {
@@ -85,9 +94,6 @@
     color: var(--text-secondary);
     opacity: 0.6;
     white-space: nowrap; 
-    /* Preventing unsightly overflow */
-    overflow: hidden;
-    text-overflow: ellipsis
 }
 
 /* Data rows */
