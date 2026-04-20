@@ -99,6 +99,7 @@ def assisters():
                 teamPrimaryColor,
                 teamSecondaryColor,
                 goalAssists_value,
+                chances_created,
                 totalGoals_value,
                 appearances_value,
                 citizenship
@@ -119,6 +120,7 @@ def assisters():
         return jsonify(df.to_dict('records'))
     
     except Exception as e:
+        print(f"ASSISTERS ERROR: {e}")
         return jsonify({"error": str(e)}), 500        
 
 # Goalkeepers endpoint

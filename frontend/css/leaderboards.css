@@ -75,9 +75,10 @@
 .table-assisters th:nth-child(3) { width: 20%; }  /* Team */
 .table-assisters th:nth-child(4) { width: 10%; }  /* Position */
 .table-assisters th:nth-child(5) { width: 8%; }   /* Assists */
-.table-assisters th:nth-child(6) { width: 8%; }   /* Goals */
-.table-assisters th:nth-child(7) { width: 10%; }  /* Apps */
-.table-assisters th:nth-child(8) { width: 12%; }  /* Nationality */
+.table-assisters th:nth-child(6) { width: 8%; }  /* Chances created */
+.table-assisters th:nth-child(7) { width: 8%; }   /* Goals */
+.table-assisters th:nth-child(8) { width: 10%; }  /* Apps */
+.table-assisters th:nth-child(9) { width: 12%; }  /* Nationality */
 
 /* Header row */
 #leaderboard-table thead tr {

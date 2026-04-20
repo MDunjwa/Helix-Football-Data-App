@@ -115,9 +115,32 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
     else if (type === "assisters") {
         
         // Assist table headers
-        const headers = ["#","Player","Team","Position", "Assists","Goals","Appearances","Nationality"];
-        headerHTML = headers.map(h => `<th>${h}</th>`).join("");
+        const headers = [
+            { label: "#" },
+            { label: "Player" },
+            { label: "Team" },
+            { label: "Position" },
+            { label: "Assists" },
+            { label: "Chances Created", tooltip: "Assisted shot attempts as logged by ESPN, including blocked shots" },
+            { label: "Goals" },
+            { label: "Appearances" },
+            { label: "Nationality" }
+        ];
 
+        headerHTML = headers.map(h => {
+            if (h.tooltip) {
+                return `
+                <th>
+                    ${h.label}
+                    <span class="tooltip-container">
+                        <i class="bi bi-info-circle tooltip-icon"></i>
+                        <span class="tooltip-text">${h.tooltip}</span>
+                    </span>
+                </th>`
+            }
+            return `<th>${h.label}</th>`;
+        }).join("");
+        
         // Assist table rows
         rowsHTML = data.map((player, index) => `
             <tr>
@@ -134,6 +157,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
                 </td>
                 <td>${player.positionAbbreviation}</td>
                 <td>${player.goalAssists_value}</td>
+                <td>${player.chances_created ?? "—"}</td>
                 <td>${player.totalGoals_value}</td>
                 <td>${player.appearances_value}</td>
                 <td>${player.citizenship}</td>            
