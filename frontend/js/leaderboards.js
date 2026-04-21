@@ -117,14 +117,14 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
         // Assist table headers
         const headers = [
             { label: "#" },
-            { label: "Player" },
+            { label: "Name" },
             { label: "Team" },
-            { label: "Position" },
-            { label: "Assists" },
-            { label: "Chances Created", tooltip: "Assisted shot attempts as logged by ESPN" },
-            { label: "Goals" },
-            { label: "Appearances" },
-            { label: "Nationality" }
+            { label: "Pos" },
+            { label: "A" },
+            { label: "CC", tooltip: "Chances created" },
+            { label: "G" },
+            { label: "Apps" },
+            { label: "Nation" }
         ];
 
         headerHTML = headers.map(h => {
