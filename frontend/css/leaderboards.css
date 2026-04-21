@@ -2,6 +2,8 @@
 
 #leaderboards-container {
     padding: 48px;
+    /* max-width: 1100px;
+    margin: 0 auto; */
 }
 
 #leaderboards-header h2 {
@@ -49,24 +51,20 @@
 
 /* Table */
 #leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: auto;
+    margin: 0 auto;
+    /* border-collapse: collapse; */
     font-size: 14px;
-    /* table-layout: fixed;  */
+    /* width: auto;
+    margin: 0 auto; */
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
 /* Table width for scorers */
-.table-scorers th:nth-child(1) { width: 4%; }   /* # */
-.table-scorers th:nth-child(2) { width: 16%; }  /* Player */
-.table-scorers th:nth-child(3) { width: 18%; }  /* Team */
-.table-scorers th:nth-child(4) { width: 6%; }   /* Position */
-.table-scorers th:nth-child(5) { width: 7%; }   /* Goals */
-.table-scorers th:nth-child(6) { width: 7%; }   /* Assists */
-.table-scorers th:nth-child(7) { width: 8%; }   /* Appearances */
-.table-scorers th:nth-child(8) { width: 7%; }   /* Shots */
-.table-scorers th:nth-child(9) { width: 9%; }   /* Accuracy */
-.table-scorers th:nth-child(10){ width: 10%; }  /* Conversion */
-.table-scorers th:nth-child(11){ width: 12%; }  /* Nationality */
+
 
 /* Table width for assisters */
 

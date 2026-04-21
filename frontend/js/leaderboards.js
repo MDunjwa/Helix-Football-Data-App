@@ -1,7 +1,7 @@
 async function fetchTopScorers() {
     try {
-        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
+        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -16,8 +16,8 @@ async function fetchTopScorers() {
 async function fetchTopAssisters() {
 
     try {
-        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
+        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "assisters");
@@ -32,8 +32,8 @@ async function fetchTopAssisters() {
 async function fetchTopGoalkeepers() {
 
     try {
-        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
+        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "goalkeepers");
@@ -58,16 +58,16 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
         // Table headers
         const headers = [
         { label: "#" },
-        { label: "Player" },
+        { label: "Name" },
         { label: "Team" },
-        { label: "Position" },
-        { label: "Goals" },
-        { label: "Assists" },
-        { label: "Appearances" },
+        { label: "Pos" },
+        { label: "G" },
+        { label: "A" },
+        { label: "Apps" },
         { label: "Shots" },
-        { label: "Accuracy", tooltip: "Shots on target divided by total shots taken" },
-        { label: "Conversion", tooltip: "Goals scored divided by total shots taken" },
-        { label: "Nationality" }
+        { label: "SoT %.", tooltip: "Shots on target divided by total shots taken" },
+        { label: "Conv %", tooltip: "Goals scored divided by total shots taken" },
+        { label: "Nation" }
                         ];
 
         // Header html
@@ -121,7 +121,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
             { label: "Team" },
             { label: "Position" },
             { label: "Assists" },
-            { label: "Chances Created", tooltip: "Assisted shot attempts as logged by ESPN, including blocked shots" },
+            { label: "Chances Created", tooltip: "Assisted shot attempts as logged by ESPN" },
             { label: "Goals" },
             { label: "Appearances" },
             { label: "Nationality" }
