@@ -172,7 +172,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
             { label: 'Saves' },
             { label: 'Save %' },
             { label: 'Shots faced' },
-            { label: 'GC' },
+            { label: 'GC', tooltip: "Goals conceded" },
             { label: 'Nation' }
         ];
 

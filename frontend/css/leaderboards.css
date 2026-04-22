@@ -59,7 +59,7 @@
     margin: 0 auto; */
     background: white;
     border-radius: 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
@@ -127,7 +127,9 @@
 
 .tooltip-text {
     visibility: hidden;
-    width: 360px;
+    /* width: 360px; */
+    max-width: 360px;
+    width: max-content;
     background-color: var(--text-primary);
     color: var(--bg-base);
     font-size: 12px;
