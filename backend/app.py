@@ -144,7 +144,7 @@ def goalkeepers():
                 goalsConceded_value,
                 save_percentage               
             FROM players
-            WHERE positionAbbreviation = "G" AND appearances_value >= 5
+            WHERE positionAbbreviation = "G" AND appearances_value >= 15
             """
 
         query += f" ORDER BY save_percentage DESC LIMIT {limit}"                

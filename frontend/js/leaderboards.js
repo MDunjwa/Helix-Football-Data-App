@@ -1,7 +1,7 @@
 async function fetchTopScorers() {
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
-        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
+        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
+        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -16,8 +16,8 @@ async function fetchTopScorers() {
 async function fetchTopAssisters() {
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
-        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
+        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
+        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "assisters");
@@ -32,8 +32,8 @@ async function fetchTopAssisters() {
 async function fetchTopGoalkeepers() {
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
-        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
+        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
+        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "goalkeepers");
@@ -44,9 +44,6 @@ async function fetchTopGoalkeepers() {
         return null;
     }
 }
-
-
-
 
 function renderTable(data, type) { //data is my array, type is the type of stat (scorer, assist etc)
     
@@ -164,6 +161,59 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
             </tr>
         `).join("");    }
 
+    else if (type === "goalkeepers") {
+
+        // Goalkeeper table headers
+        const headers = [
+            { label: '#' },
+            { label: 'Name' },
+            { label: 'Team' },
+            { label: 'Apps' },
+            { label: 'Saves' },
+            { label: 'Save %' },
+            { label: 'Shots faced' },
+            { label: 'GC' },
+            { label: 'Nation' }
+        ];
+
+        headerHTML = headers.map(h => {
+            if (h.tooltip) {
+                return `
+                <th>
+                    ${h.label}
+                    <span class="tooltip-container">
+                        <i class="bi bi-info-circle tooltip-icon"></i>
+                        <span class="tooltip-text">${h.tooltip}</span>
+                    </span>
+                </th>`            
+              }
+            return `<th>${h.label}</th>`;
+    }).join("");
+
+        // Goalkeepers table rows
+        rowsHTML = data.map((player, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${player.fullName}</td>
+                    <td class="team-cell">
+                        <img 
+                            src="${player.teamLogo}" 
+                            alt="${player.teamName}" 
+                            title="${player.teamName}"
+                            class="team-logo"
+                        >
+                        <span class="team-name">${player.teamName}</span>
+                    </td>
+                    <td>${player.appearances_value}</td>
+                    <td>${player.saves_value}</td>
+                    <td>${player.save_percentage != null ? (player.save_percentage * 100).toFixed(1) + "%" : "—"}</td>
+                    <td>${player.shotsFaced_value}</td>
+                    <td>${player.goalsConceded_value}</td>
+                    <td>${player.citizenship}</td>            
+                </tr>
+            `).join("");
+
+    }
 
     // Sending the data to the webpage
     document.getElementById("table-container").innerHTML = `
