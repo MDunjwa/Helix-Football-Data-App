@@ -76,3 +76,12 @@ async function renderMainChart(data, chartConfig) {
     document.getElementById("main-chart-title").textContent = chartConfig.title;
 
 }
+
+async function loadTab(tabName, chartIndex=0) {
+
+    const tab = chartConfig[tabName];
+    const position = tab.position;
+    const chart = tab.charts;
+
+    fetchScatterData(pos, x, y)
+}
