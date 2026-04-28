@@ -1,4 +1,4 @@
-const tabConfig = {
+const chartConfig = {
     scoring: {
         position: null,
         charts: [
@@ -31,3 +31,48 @@ const tabConfig = {
         ]
     }
 };
+
+async function fetchScatterData(position, x, y) {
+
+    const positionParameter = position ? `&position=${position}` : "";
+    const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch scatter data:", error);
+        return null;
+    }
+}
+
+async function renderMainChart(data, chartConfig) {
+
+    // Getting the DOM element and initialisig ECharts
+    const chartDom = document.getElementById("main-chart")
+    const myChart = echarts.init(chartDom)
+    
+    // Transforming player objects into x, y and name values
+    const points = data.map(player => [
+        player[chartConfig.x],
+        player[chartConfig.y],
+        player.fullName
+    ]);
+
+    // Chart behavior
+    const option = {
+    xAxis: { type: "value" },
+    yAxis: { type: "value" },
+    series: [{
+        type: "scatter",
+        data: points
+    }]
+    }   
+
+    myChart.setOption(option);
+
+    // Labelling the charts
+    document.getElementById("main-chart-title").textContent = chartConfig.title;
+
+}
