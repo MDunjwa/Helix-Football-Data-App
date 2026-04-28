@@ -1,7 +1,7 @@
 async function fetchTopScorers() {
     try {
-        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-scorers?limit=15");
+        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-scorers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -16,8 +16,8 @@ async function fetchTopScorers() {
 async function fetchTopAssisters() {
 
     try {
-        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-assisters?limit=15");
+        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-assisters?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "assisters");
@@ -32,8 +32,8 @@ async function fetchTopAssisters() {
 async function fetchTopGoalkeepers() {
 
     try {
-        // const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
-        const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
+        const response = await fetch("http://127.0.0.1:5000/api/stats/top-goalkeepers?limit=15");
+        // const response = await fetch("https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/top-goalkeepers?limit=15");
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "goalkeepers");

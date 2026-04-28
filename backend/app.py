@@ -156,5 +156,56 @@ def goalkeepers():
     except Exception as e:
         return jsonify({"error": str(e)}), 500  
     
+# Visualisation endpoints
+# Goalkeepers endpoint
+@app.route('/api/stats/scatter')
+def scatter():
+
+    allowed_columns = [
+        "totalGoals_value", "goalAssists_value", "totalShots_value",
+        "shot_accuracy", "conversion_rate", "on_target_conversion_rate",
+        "chances_created", "foulsCommitted_value", "foulsSuffered_value",
+        "yellowCards_value", "saves_value", "goalsConceded_value",
+        "save_percentage", "shotsFaced_value", "appearances_value"
+    ]
+
+    # Getting query parameters with defaults 
+    x_axis = request.args.get("x","totalShots_value")
+    y_axis = request.args.get("y","totalGoals_value")
+    position = request.args.get("position",type=str)
+
+    # Validation
+    if x_axis not in allowed_columns or y_axis not in allowed_columns:
+            return jsonify({"error": "Invalid column name"}), 400
+    
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        query = f"""
+            SELECT
+                fullName,
+                positionAbbreviation,
+                teamName,
+                teamPrimaryColor,
+                {x_axis},
+                {y_axis}
+            FROM players
+            WHERE appearances_value >= 5
+            AND {x_axis} IS NOT NULL
+            AND {y_axis} IS NOT NULL
+        """    
+            
+        if position:
+            query += " AND positionAbbreviation = ?"
+            df = pd.read_sql_query(query, conn, params=[position])
+        else:
+            df = pd.read_sql_query(query, conn)
+
+        conn.close()
+        return jsonify(df.to_dict('records'))
+
+    except Exception as e:
+        print(f"SCATTER ERROR: {e}")
+        return jsonify({"error": str(e)}), 500
+    
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
