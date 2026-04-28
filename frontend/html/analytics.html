@@ -6,8 +6,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">        
         <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../css/leaderboards.css">
-        <title>Helix Leaderboards</title>
+        <link rel="stylesheet" href="../css/analytics.css">
+        <title>Helix Analytics</title>
     </head>    
     <body>
         <div id="app" class="d-flex"> 
@@ -29,13 +29,13 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active py-2" href="#">
+                        <a class="nav-link py-2" href="leaderboards.html">
                             <i class="bi bi-clipboard-data me-2"></i>
                             Leaderboards</a>
                     </li>            
                     
                     <li class="nav-item">
-                        <a class="nav-link py-2" href="analytics.html">
+                        <a class="nav-link active py-2" href="#">
                             <i class="bi bi-bar-chart me-2"></i>
                             Analytics</a>
                     </li>         
@@ -64,30 +64,39 @@
             <!-- Main content -->
             <div id="main-content" class="flex-grow-1">
 
-                <div id="leaderboards-container">
+                <div id="analytics-container">
                     <!-- Text at the top -->
-                    <div id="leaderboards-header">
-                        <h2>Leaderboards</h2>
-                        <p>Top performers across the 2024 Premier League season.</p>
+                    <div id="analytics-header">
+                        <h2>Analytics</h2>
+                        <p>Discover patterns in players</p>
                     </div>
                 
                     
                     <!-- Buttons to switch between tabs -->
-                    <div id="leaderboard-tabs">
-                        <button class="tab-btn active" data-tab="scorers">Top Scorers</button>
-                        <button class="tab-btn" data-tab="assisters">Top Assisters</button>
-                        <button class="tab-btn" data-tab="goalkeepers">Goalkeepers</button>
+                    <div id="analytics-tabs">
+                        <button class="tab-btn active" data-tab="attack">Attack</button>
+                        <button class="tab-btn" data-tab="midfield">Midfield</button>
+                        <button class="tab-btn" data-tab="defense">Defense</button>
+                        <button class="tab-btn" data-tab="goalkeeping">Goalkeeping</button>
                     </div>       
 
-                    <div id="table-container">
-
+                    <!-- Main chart -->
+                    <div id="main-chart-container">
+                        <div id="main-chart-title"></div>
+                        <div id="main-chart"></div>
                     </div>
-                        
+
+                    <!-- Secondary charts -->
+                    <div id="secondary-charts">
+                        <div class="secondary-chart" id="secondary-chart-0"></div>
+                        <div class="secondary-chart" id="secondary-chart-1"></div>
+                    </div>                        
                 </div>       
             </div> 
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
         <script src="../js/ui.js"></script>
-        <script src="../js/leaderboards.js"></script>                
+        <script src="../js/analytics.js"></script>                
     </body>
 </html>

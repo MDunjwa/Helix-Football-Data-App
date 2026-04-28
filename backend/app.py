@@ -156,7 +156,7 @@ def goalkeepers():
     except Exception as e:
         return jsonify({"error": str(e)}), 500  
     
-# Visualisation endpoints
+# Analytics endpoints
 # Goalkeepers endpoint
 @app.route('/api/stats/scatter')
 def scatter():
