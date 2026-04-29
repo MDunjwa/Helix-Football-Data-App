@@ -65,6 +65,11 @@
     margin-bottom: 16px;
 }
 
+#main-chart-description {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 16px;
+}
 /* Secondary charts row */
 
 #secondary-charts {
