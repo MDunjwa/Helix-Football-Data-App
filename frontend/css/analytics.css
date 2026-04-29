@@ -59,6 +59,12 @@
     height: 480px;
 }
 
+#main-chart-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
 /* Secondary charts row */
 
 #secondary-charts {
