@@ -81,7 +81,26 @@ async function loadTab(tabName, chartIndex=0) {
 
     const tab = chartConfig[tabName];
     const position = tab.position;
-    const chart = tab.charts;
+    // Choosing which chart index to use for graph
+    const chosenChart = tab.charts[chartIndex];
+    const x = chosenChart.x;
+    const y = chosenChart.y;
 
-    fetchScatterData(pos, x, y)
+    // Fetching data
+    const data = await fetchScatterData(position, x, y)
+
+    // Rendering chart
+    renderMainChart(data, chosenChart)
 }
+
+// Initial chart
+loadTab("scoring");
+
+// Tab switching
+document.querySelectorAll(".tab-btn").forEach(button => {
+    button.addEventListener("click", function() {
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        this.classList.add("active");
+        loadTab(this.dataset.tab);
+    });
+});
