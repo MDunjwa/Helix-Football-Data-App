@@ -209,39 +209,81 @@ async function fetchScatterData(position, x, y) {
 
 async function renderMainChart(data, chartConfig) {
 
-    // Getting the DOM element and initialisig ECharts
+    // Getting the DOM element
     const chartDom = document.getElementById("main-chart")
+
+    // Disposing previous chatr instance to prevent stacking
+    const existing = echarts.getInstanceByDom(chartDom);
+    if (existing) existing.dispose();
+
+    // Initialising ECharts
     const myChart = echarts.init(chartDom)
     
-    // Transforming player objects into x, y and name values
-    const points = data.map(player => [
-        player[chartConfig.x],
-        player[chartConfig.y],
-        player.fullName
-    ]);
+    // Calculating medians for quadrant boundaries 
+    const xValues = data.map(p => p[chartConfig.x]).sort((a, b) => a - b);
+    const yValues = data.map(p => p[chartConfig.y]).sort((a, b) => a - b);
+    const medianX = xValues[Math.floor(xValues.length / 2)];
+    const medianY = yValues[Math.floor(yValues.length / 2)];
+
+    // Sorting players into quadrants
+    const quadrantData = { topRight: [], topLeft: [], bottomRight: [], bottomLeft: [] };
+
+    data.forEach(player => {
+        const x = player[chartConfig.x];
+        const y = player[chartConfig.y];
+        const name = player.fullName;
+        const point = [x, y, name];
+
+        if (x >= medianX && y >= medianY) quadrantData.topRight.push(point);
+        else if (x < medianX && y >= medianY) quadrantData.topLeft.push(point);
+        else if (x >= medianX && y < medianY) quadrantData.bottomRight.push(point);
+        else quadrantData.bottomLeft.push(point);
+    });
+
+    // Building one series/layer per quadrant
+    const series = Object.entries(chartConfig.quadrants).map(([key, q]) => ({
+        name: q.label || "Other",
+        type: "scatter",
+        data: quadrantData[key],
+        itemStyle: { color: q.color, opacity: 0.8 },
+        symbolSize: 10,
+        tooltip: {
+            formatter: params => `<strong>${params.data[2]}</strong><br/>${chartConfig.xLabel}: ${params.data[0]}<br/>${chartConfig.yLabel}: ${params.data[1]}`
+        }
+    })).filter(s => s.data.length > 0);
+
 
     // Chart behavior
     const option = {
-    xAxis: { 
-        type: "value",
-        name: chartConfig.xLabel
-    },
-    yAxis: { 
-        type: "value",
-        name: chartConfig.yLabel
-    },
-    series: [{
-        type: "scatter",
-        data: points
-    }]
-    }   
+        tooltip: { trigger: "item" },
+        legend: {
+            orient: "vertical",
+            right: 10,
+            top: "middle",
+            textStyle: { fontSize: 12, color: "#334155" }
+        },
+        xAxis: {
+            type: "value",
+            name: chartConfig.xLabel,
+            nameLocation: "middle",
+            nameGap: 30,
+            splitLine: { lineStyle: { color: "rgba(51,65,85,0.08)" } }
+        },
+        yAxis: {
+            type: "value",
+            name: chartConfig.yLabel,
+            nameLocation: "middle",
+            nameGap: 40,
+            splitLine: { lineStyle: { color: "rgba(51,65,85,0.08)" } }
+        },
+        series
+    };    
 
     myChart.setOption(option);
 
     // Labelling the charts
     document.getElementById("main-chart-title").textContent = chartConfig.title;
     document.getElementById("main-chart-description").textContent = chartConfig.description;
-
 }
 
 async function loadTab(tabName, chartIndex=0) {

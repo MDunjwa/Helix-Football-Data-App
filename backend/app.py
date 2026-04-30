@@ -163,7 +163,7 @@ def scatter():
 
     allowed_columns = [
         "totalGoals_value", "goalAssists_value", "totalShots_value",
-        "shot_accuracy", "conversion_rate", "on_target_conversion_rate",
+        "shot_accuracy", "shotsOnTarget_value", "conversion_rate", "on_target_conversion_rate",
         "chances_created", "foulsCommitted_value", "foulsSuffered_value",
         "yellowCards_value", "saves_value", "goalsConceded_value",
         "save_percentage", "shotsFaced_value", "appearances_value, discipline_score"
