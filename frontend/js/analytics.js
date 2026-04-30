@@ -65,6 +65,20 @@ const chartConfig = {
         position: null,
         charts: [
             {
+                x: "foulsCommitted_value",
+                y: "yellowCards_value",
+                xLabel: "Fouls Committed",
+                yLabel: "Yellow Cards",
+                title: "Fouls vs Yellow Cards",
+                description: "Assesses defensive discipline. Players who commit fouls but avoid cards show better control, while high values in both suggest risky or mistimed defending.",
+                quadrants: {
+                    topRight:    { label: "High-risk defenders", color: "#E74C3C" },
+                    topLeft:     { label: "Card-prone", color: "#F39C12" },
+                    bottomRight: { label: "Frequent tacklers", color: "#27AE60" },
+                    bottomLeft:  { label: "Low defensive actions", color: "#BDC3C7" }
+                }
+            },
+            {
                 x: "chances_created",
                 y: "foulsSuffered_value",
                 xLabel: "Chances Created",
@@ -98,20 +112,6 @@ const chartConfig = {
     defense: {
         position: "D",
         charts: [
-            {
-                x: "foulsCommitted_value",
-                y: "yellowCards_value",
-                xLabel: "Fouls Committed",
-                yLabel: "Yellow Cards",
-                title: "Fouls vs Yellow Cards",
-                description: "Assesses defensive discipline. Players who commit fouls but avoid cards show better control, while high values in both suggest risky or mistimed defending.",
-                quadrants: {
-                    topRight:    { label: "High-risk defenders", color: "#E74C3C" },
-                    topLeft:     { label: "Card-prone", color: "#F39C12" },
-                    bottomRight: { label: "Frequent tacklers", color: "#27AE60" },
-                    bottomLeft:  { label: "Low defensive actions", color: "#BDC3C7" }
-                }
-            },
             {
                 x: "discipline_score",
                 y: "foulsCommitted_value",
