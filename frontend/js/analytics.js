@@ -66,6 +66,20 @@ const chartConfig = {
         charts: [            
             {
                 x: "chances_created",
+                y: "goalAssists_value",
+                xLabel: "Chances Created",
+                yLabel: "Assists",
+                title: "Chances Created vs Assists",
+                description: "Compares chance creation with final output. Highlights differences between underlying creativity and recorded assists.",
+                quadrants: {
+                    topRight:    { label: "High creation & output", color: "#6C91C2" },
+                    topLeft:     { label: "High output, lower creation", color: "#27AE60" },
+                    bottomRight: { label: "High creation, lower output", color: "#F39C12" },
+                    bottomLeft:  { label: "Low involvement", color: "#BDC3C7" }
+                }
+            },
+            {
+                x: "chances_created",
                 y: "foulsSuffered_value",
                 xLabel: "Chances Created",
                 yLabel: "Fouls Won",
@@ -146,20 +160,6 @@ const chartConfig = {
     goalkeeping: {
         position: "G",
         charts: [
-            {
-                x: "chances_created",
-                y: "goalAssists_value",
-                xLabel: "Chances Created",
-                yLabel: "Assists",
-                title: "Chances Created vs Assists",
-                description: "Compares chance creation with final output. Highlights differences between underlying creativity and recorded assists.",
-                quadrants: {
-                    topRight:    { label: "High creation & output", color: "#6C91C2" },
-                    topLeft:     { label: "High output, lower creation", color: "#27AE60" },
-                    bottomRight: { label: "High creation, lower output", color: "#F39C12" },
-                    bottomLeft:  { label: "Low involvement", color: "#BDC3C7" }
-                }
-            },
             {
                 x: "shotsFaced_value",
                 y: "save_percentage",
