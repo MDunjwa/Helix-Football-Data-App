@@ -13,7 +13,7 @@ const chartConfig = {
                     topRight:    { label: "Complete attackers",   color: "#6C91C2" },
                     topLeft:     { label: "Playmakers",  color: "#27AE60" },
                     bottomRight: { label: "Poachers",    color: "#F39C12" },
-                    bottomLeft:  { label: "Peripheral", color: "#BDC3C7" }
+                    bottomLeft:  { label: "", color: "#BDC3C7" }
                 }
             },
             {
@@ -27,7 +27,7 @@ const chartConfig = {
                     topRight:    { label: "High-volume scorers", color: "#6C91C2" },
                     topLeft:     { label: "Shot-heavy, low return", color: "#E74C3C" },
                     bottomRight: { label: "Clinical finishers", color: "#27AE60" },
-                    bottomLeft:  { label: "Low threat", color: "#BDC3C7" }
+                    bottomLeft:  { label: "", color: "#BDC3C7" }
                 }
             },
             {
@@ -41,7 +41,7 @@ const chartConfig = {
                     topRight:    { label: "Precise & active shooters", color: "#6C91C2" },
                     topLeft:     { label: "Selective shooters", color: "#27AE60" },
                     bottomRight: { label: "Volume shooters", color: "#F39C12" },
-                    bottomLeft:  { label: "Low impact shooters", color: "#BDC3C7" }
+                    bottomLeft:  { label: "", color: "#BDC3C7" }
                 }
             },
             {
@@ -55,7 +55,7 @@ const chartConfig = {
                     topRight:    { label: "Elite finishers", color: "#6C91C2" },
                     topLeft:     { label: "Highly efficient", color: "#27AE60" },
                     bottomRight: { label: "Wasteful shooters", color: "#E74C3C" },
-                    bottomLeft:  { label: "Low output", color: "#BDC3C7" }
+                    bottomLeft:  { label: "", color: "#BDC3C7" }
                 }
             }
         ]
@@ -75,23 +75,8 @@ const chartConfig = {
                     topRight:    { label: "Creative under pressure", color: "#6C91C2" },
                     topLeft:     { label: "Space creators", color: "#27AE60" },
                     bottomRight: { label: "Draws contact", color: "#F39C12" },
-                    bottomLeft:  { label: "Low involvement", color: "#BDC3C7" }
+                    bottomLeft:  { label: "", color: "#BDC3C7" }
                 }
-            },
-            {
-                x: "foulsSuffered_value",
-                y: "goalAssists_value",
-                xLabel: "Fouls Won",
-                yLabel: "Assists",
-                title: "Fouls Won vs Assists",
-                description: "Highlights players who are difficult to dispossess and draw fouls under pressure. High fouls won indicates players who consistently challenge defenders and disrupt play.",
-                quadrants: {
-                    topRight:    { label: "High impact", color: "#6C91C2" },
-                    topLeft:     { label: "Final-third creators", color: "#27AE60" },
-                    bottomRight: { label: "Wins fouls", color: "#F39C12" },
-                    bottomLeft:  { label: "Low involvement", color: "#BDC3C7" }
-                    }
-
             },
             {
                 x: "chances_created",
@@ -161,6 +146,20 @@ const chartConfig = {
     goalkeeping: {
         position: "G",
         charts: [
+            {
+                x: "chances_created",
+                y: "goalAssists_value",
+                xLabel: "Chances Created",
+                yLabel: "Assists",
+                title: "Chances Created vs Assists",
+                description: "Compares chance creation with final output. Highlights differences between underlying creativity and recorded assists.",
+                quadrants: {
+                    topRight:    { label: "High creation & output", color: "#6C91C2" },
+                    topLeft:     { label: "High output, lower creation", color: "#27AE60" },
+                    bottomRight: { label: "High creation, lower output", color: "#F39C12" },
+                    bottomLeft:  { label: "Low involvement", color: "#BDC3C7" }
+                }
+            },
             {
                 x: "shotsFaced_value",
                 y: "save_percentage",
