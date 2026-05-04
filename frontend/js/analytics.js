@@ -195,7 +195,9 @@ const chartConfig = {
 async function fetchScatterData(position, x, y) {
 
     const positionParameter = position ? `&position=${position}` : "";
-    const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    // const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    const url = `https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+
 
     try {
         const response = await fetch(url);
@@ -218,41 +220,43 @@ async function renderMainChart(data, chartConfig) {
 
     // Initialising ECharts
     const myChart = echarts.init(chartDom)
-    
-    // Calculating medians for quadrant boundaries 
-    const xValues = data.map(p => p[chartConfig.x]).sort((a, b) => a - b);
-    const yValues = data.map(p => p[chartConfig.y]).sort((a, b) => a - b);
-    const medianX = xValues[Math.floor(xValues.length / 2)];
-    const medianY = yValues[Math.floor(yValues.length / 2)];
 
-    // Sorting players into quadrants
-    const quadrantData = { topRight: [], topLeft: [], bottomRight: [], bottomLeft: [] };
+    const scatterDots = data.map(p => [p[chartConfig.x], p[chartConfig.y], p.fullName]);
+    const sortedScatterDots = scatterDots.sort((a, b) => (b[0] * b[1]) - (a[0] * a[1]));
+    const elite = sortedScatterDots.slice(0, 5);
+    const rest = sortedScatterDots.slice(5);
 
-    data.forEach(player => {
-        const x = player[chartConfig.x];
-        const y = player[chartConfig.y];
-        const name = player.fullName;
-        const point = [x, y, name];
-
-        if (x >= medianX && y >= medianY) quadrantData.topRight.push(point);
-        else if (x < medianX && y >= medianY) quadrantData.topLeft.push(point);
-        else if (x >= medianX && y < medianY) quadrantData.bottomRight.push(point);
-        else quadrantData.bottomLeft.push(point);
-    });
-
-    // Building one series/layer per quadrant
-    const series = Object.entries(chartConfig.quadrants).map(([key, q]) => ({
-        name: q.label || "Other",
+    // Building series/layer 
+    const series = [
+    {
+        name: "Top performers",
         type: "scatter",
-        data: quadrantData[key],
-        itemStyle: { color: q.color, opacity: 0.8 },
-        symbolSize: 10,
+        data: elite,
+        itemStyle: { color: "#84CC16", opacity: 0.9 },
+        symbolSize: 13,
+        label: {
+            show: true,
+            formatter: params => params.data[2],
+            position: "top",
+            fontSize: 11,
+            color: "#1F2933"
+        },
         tooltip: {
             formatter: params => `<strong>${params.data[2]}</strong><br/>${chartConfig.xLabel}: ${params.data[0]}<br/>${chartConfig.yLabel}: ${params.data[1]}`
         }
-    })).filter(s => s.data.length > 0);
-
-
+    },
+    {
+        name: "_rest",
+        type: "scatter",
+        data: rest,
+        itemStyle: { color: "#475569", opacity: 0.8 },
+        symbolSize: 8,
+        tooltip: {
+            formatter: params => `<strong>${params.data[2]}</strong><br/>${chartConfig.xLabel}: ${params.data[0]}<br/>${chartConfig.yLabel}: ${params.data[1]}`
+        }
+    }
+];
+ 
     // Chart behavior
     const option = {
         tooltip: { trigger: "item" },
@@ -260,7 +264,9 @@ async function renderMainChart(data, chartConfig) {
             orient: "vertical",
             right: 10,
             top: "middle",
-            textStyle: { fontSize: 12, color: "#334155" }
+            textStyle: { fontSize: 12, color: "#334155" },
+            formatter: name => name.startsWith("_") ? "" : name,
+            data: series.map(s => s.name).filter(n => !n.startsWith("_"))
         },
         xAxis: {
             type: "value",
