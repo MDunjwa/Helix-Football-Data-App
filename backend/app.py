@@ -166,7 +166,7 @@ def scatter():
         "shot_accuracy", "shotsOnTarget_value", "conversion_rate", "on_target_conversion_rate",
         "chances_created", "foulsCommitted_value", "foulsSuffered_value",
         "yellowCards_value", "saves_value", "goalsConceded_value",
-        "save_percentage", "shotsFaced_value", "appearances_value, discipline_score"
+        "save_percentage", "shotsFaced_value", "appearances_value" , "discipline_score"
     ]
 
     # Getting query parameters with defaults 
