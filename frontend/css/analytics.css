@@ -87,3 +87,42 @@
     padding: 16px;
     cursor: pointer;
 }
+
+/* Chart selection */
+
+/* Chart selection container */
+#chart-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+/* Base button */
+.chart-button {
+    background: #F1F5F9;
+    border: 1px solid transparent;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Text behavior upon hover */
+.chart-button:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+/* Active selected chart */
+.chart-button.active {
+    /* background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue); */
+    background: #E74C3C;
+    border-color: #E74C3C;
+    color: white;
+}
