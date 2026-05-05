@@ -81,14 +81,14 @@ const chartConfig = {
                 title: "Fouls vs Yellow Cards",
                 description: "Assesses defensive discipline. Players who commit fouls but avoid cards show better control, while high values in both suggest risky or mistimed defending."
             },
-            {
-                x: "discipline_score",
-                y: "foulsCommitted_value",
-                xLabel: "Discipline Score",
-                yLabel: "Fouls Committed",
-                title: "Discipline vs Fouling",
-                description: "Compares overall discipline with foul frequency. Highlights players who defend without excessive infringement."
-            },
+            // {
+            //     x: "discipline_score",
+            //     y: "foulsCommitted_value",
+            //     xLabel: "Discipline Score",
+            //     yLabel: "Fouls Committed",
+            //     title: "Discipline vs Fouling",
+            //     description: "Compares overall discipline with foul frequency. Highlights players who defend without excessive infringement."
+            // },
             {
                 x: "foulsCommitted_value",
                 y: "foulsSuffered_value",
