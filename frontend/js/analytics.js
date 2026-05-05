@@ -1,3 +1,6 @@
+// Chart clicking history for tab switching
+const selectedCharts = {};
+
 const chartConfig = {
     scoring: {
         position: null,
@@ -225,10 +228,19 @@ async function renderMainChart(data, chartConfig, tabContext) {
     document.getElementById("main-chart-description").textContent = chartConfig.description;
 }
 
-async function loadTab(tabName, chartIndex=0) {
+async function loadTab(tabName, chartIndex=null) {
 
+    // Using the saved chart if none is provided
+    if (chartIndex === null) {
+        chartIndex = selectedCharts[tabName] ?? 0;
+    }
+
+    // Saving selection
+    selectedCharts[tabName] = chartIndex;
+    
     const tab = chartConfig[tabName];
     const position = tab.position;
+
     // Choosing which chart index to use for graph
     const chosenChart = tab.charts[chartIndex];
     const x = chosenChart.x;
@@ -243,12 +255,48 @@ async function loadTab(tabName, chartIndex=0) {
 
 // Initial chart
 loadTab("scoring");
+renderChartSelector("scoring");
 
 // Tab switching
 document.querySelectorAll(".tab-btn").forEach(button => {
     button.addEventListener("click", function() {
         document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
         this.classList.add("active");
-        loadTab(this.dataset.tab);
+
+        const tabName = this.dataset.tab;
+
+        loadTab(tabName);
+        // Loading selector buttons for this particular tab
+        renderChartSelector(tabName);
     });
 });
+
+// Chart selection
+function renderChartSelector(tabName) {
+    
+    const container = document.getElementById("chart-selector");
+    // Getting the charts for that particular tab
+    const charts = chartConfig[tabName].charts;
+
+    const activeIndex = selectedCharts[tabName] ?? 0;
+    
+    // Generating a button for each chart
+    container.innerHTML = charts.map((chart, index) => `
+        <button class="chart-button ${index === activeIndex ? "active" : ""}" data-index="${index}">
+            ${chart.title}
+        </button>
+    `).join("");
+
+    // Click handlers
+    document.querySelectorAll(".chart-button").forEach(btn => {
+        btn.addEventListener("click", function () {
+            // Removing active state and highlight only current button
+            document.querySelectorAll(".chart-button").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+
+            const chartIndex = Number(this.dataset.index);
+            // Loading the chart that is clicked
+            loadTab(tabName, chartIndex);
+        });
+    });
+}
