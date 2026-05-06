@@ -218,6 +218,88 @@ def scatter():
     except Exception as e:
         print(f"SCATTER ERROR: {e}")
         return jsonify({"error": str(e)}), 500
+
+# Compare endpoints
+
+# Player search
+@app.route('/api/players/search')
+def search_players():
+    print(f"DB_PATH: {DB_PATH}")
+    print(f"DB exists: {os.path.exists(DB_PATH)}")
+    q = request.args.get('q', type=str)
+    
+    # Guard against empty searches or too many results
+    if not q or len(q) < 2:
+        return jsonify([])
+    
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        query = """
+            SELECT
+                athleteId,
+                fullName,
+                positionAbbreviation,
+                teamName,
+                teamLogo,
+                teamPrimaryColor,
+                age
+            FROM players
+            WHERE fullName LIKE ?
+            LIMIT 8
+        """
+        df = pd.read_sql_query(query, conn, params=[f"%{q}%"])
+        conn.close()
+        return jsonify(df.to_dict('records'))
+    
+    except Exception as e:
+        print(f"SEARCH ERROR: {e}")
+        return jsonify({"error": str(e)}), 500
+
+# Player detail endpoint
+@app.route('/api/players/<athlete_id>')
+def get_player(athlete_id):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        query = """
+            SELECT
+                athleteId,
+                fullName,
+                positionAbbreviation,
+                teamName,
+                teamLogo,
+                teamPrimaryColor,
+                teamSecondaryColor,
+                age,
+                citizenship,
+                appearances_value,
+                totalGoals_value,
+                goalAssists_value,
+                shot_accuracy,
+                conversion_rate,
+                on_target_conversion_rate,
+                fouls_suff_pct_pos,
+                chances_created,
+                goals_pct_pos,
+                assists_pct_pos,
+                shot_accuracy_pct_pos,
+                conversion_pct_pos,
+                on_target_conv_pct_pos,
+                fouls_suff_pct_pos,
+                fouls_comm_pct_pos
+            FROM players
+            WHERE athleteId = ?
+        """
+        df = pd.read_sql_query(query, conn, params=[athlete_id])
+        conn.close()
+        
+        if df.empty:
+            return jsonify({"error": "Player not found"}), 404
+            
+        return jsonify(df.to_dict('records')[0])
+    
+    except Exception as e:
+        print(f"PLAYER ERROR: {e}")
+        return jsonify({"error": str(e)}), 500
     
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

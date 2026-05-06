@@ -118,8 +118,8 @@ const chartConfig = {
 async function fetchScatterData(position, x, y) {
 
     const positionParameter = position ? `&position=${position}` : "";
-    const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
-    // const url = `https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    // const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    const url = `https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
 
 
     try {
