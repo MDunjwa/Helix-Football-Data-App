@@ -117,7 +117,7 @@ const chartConfig = {
                 xLabel: "Saves",
                 yLabel: "Goals Conceded",
                 title: "Saves vs Goals Conceded",
-                description: "Shows the relationship between saves made and goals conceded."
+                description: "Separates high-workload goalkeepers from low-activity ones."
             }
         ]
     }
@@ -126,8 +126,8 @@ const chartConfig = {
 async function fetchScatterData(position, x, y) {
 
     const positionParameter = position ? `&position=${position}` : "";
-    // const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
-    const url = `https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    // const url = `https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
 
 
     try {
@@ -145,7 +145,7 @@ async function renderMainChart(data, chartConfig, tabContext) {
     // Getting the DOM element
     const chartDom = document.getElementById("main-chart")
 
-    // Disposing previous chatr instance to prevent stacking
+    // Disposing previous chart instance to prevent stacking
     const existing = echarts.getInstanceByDom(chartDom);
     if (existing) existing.dispose();
 
