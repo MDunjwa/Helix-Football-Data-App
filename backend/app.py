@@ -189,11 +189,23 @@ def scatter():
                 {x_axis},
                 {y_axis}
             FROM players
-            WHERE appearances_value >= 5
+            WHERE appearances_value >= 10
             AND {x_axis} IS NOT NULL
             AND {y_axis} IS NOT NULL
         """    
             
+        # Filtering out low values that skew data
+        accuracy_stats = {"shot_accuracy", "conversion_rate", "on_target_conversion_rate"}
+        
+        if x_axis in accuracy_stats or y_axis in accuracy_stats:
+            query += " AND totalShots_value >= 20"
+
+        if x_axis == "chances_created" or y_axis == "chances_created":
+            query += " AND chances_created >= 10"
+
+        if x_axis == "save_percentage" or y_axis == "save_percentage":
+            query += " AND shotsFaced_value >= 30"
+        
         if position:
             query += " AND positionAbbreviation = ?"
             df = pd.read_sql_query(query, conn, params=[position])
