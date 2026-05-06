@@ -81,14 +81,6 @@ const chartConfig = {
                 title: "Fouls vs Yellow Cards",
                 description: "Assesses defensive discipline. Players who commit fouls but avoid cards show better control, while high values in both suggest risky or mistimed defending."
             },
-            // {
-            //     x: "discipline_score",
-            //     y: "foulsCommitted_value",
-            //     xLabel: "Discipline Score",
-            //     yLabel: "Fouls Committed",
-            //     title: "Discipline vs Fouling",
-            //     description: "Compares overall discipline with foul frequency. Highlights players who defend without excessive infringement."
-            // },
             {
                 x: "foulsCommitted_value",
                 y: "foulsSuffered_value",
@@ -159,8 +151,22 @@ async function renderMainChart(data, chartConfig, tabContext) {
 
     // Determine highlight color and label based on chart type
     const isDisciplineChart = (tabContext === 'defense' && chartConfig.x === 'foulsCommitted_value' && chartConfig.y === 'yellowCards_value');
-    const highlightColor = isDisciplineChart ? "#E74C3C" : "#84CC16";
-    const highlightLabel = isDisciplineChart ? "Aggressive defenders" : "Top performers"
+    const isSavesChart = (tabContext === 'goalkeeping' && chartConfig.x === 'saves_value' && chartConfig.y == 'goalsConceded_value');
+
+    if (isDisciplineChart) {
+        highlightColor = '#E74C3C';
+        highlightLabel = 'Aggressive defenders';
+        }   
+
+    else if (isSavesChart) {
+        highlightColor = '#ffa600ff';
+        highlightLabel = 'Busiest goalkeepers';
+        }
+
+        else {
+            highlightColor = '#84CC16';
+            highlightLabel = 'Top performers';    
+        }
 
     // Building series/layer 
     const series = [
