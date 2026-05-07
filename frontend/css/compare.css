@@ -1,0 +1,48 @@
+#player-slots {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+#player-slots > div {
+    flex: 1; 
+}
+
+#charts-container {
+    display: flex;
+    gap: 24px;
+}
+
+#radar-chart {
+    flex: 1; 
+    height: 420px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 24px;
+}
+
+#lollipop-chart {
+    flex: 1; 
+    height: 420px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 24px;
+}
+
+#compare-container {
+    padding: 48px;
+}
+
+#compare-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+#compare-header p {
+    font-size: 14px;
+    opacity: 0.6;
+    margin-bottom: 32px;
+}
