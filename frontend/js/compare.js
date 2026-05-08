@@ -65,6 +65,9 @@ async function selectPlayer(slotNumber, player) {
     const response = await fetch(`http://127.0.0.1:5000/api/players/${player.athleteId}`);
     const playerData = await response.json();
 
+    // Storing it 
+    selectedPlayers[slotNumber] = playerData;
+
     // Fetching the photo from TheSportsDB
     let photoUrl = null;
     try {
@@ -76,6 +79,7 @@ async function selectPlayer(slotNumber, player) {
     }
 
     renderPlayerCard(slotNumber, playerData, photoUrl);
+    updateCharts();
 
 }
 
@@ -133,3 +137,32 @@ function formatPosition(abbr) {
     const map = { F: "Forward", M: "Midfielder", D: "Defender", G: "Goalkeeper" };
     return map[abbr] || abbr;
 }
+
+// Storing the selected players' data
+const selectedPlayers = { 1: null, 2: null };
+
+// Rendering the charts when both players are selected
+function updateCharts() {
+    const player_1 = selectedPlayers[1];
+    const player_2 = selectedPlayers[2];
+    if (!player_1 || !player_2) return; 
+    renderRadarChart(player_1, player_2);
+}
+
+// The axes of my radars for midfielders and forwards
+const radarAxes = {
+    F: [
+        { key: "goals_pct_pos", label: "Goals" },
+        { key: "assists_pct_pos", label: "Assists" },
+        { key: "shot_accuracy_pct_pos", label: "Technical Shooting" },
+        { key: "conversion_pct_pos", label: "Efficiency" },
+        { key: "on_target_conv_pct_pos", label: "Composure" }
+    ],
+    M: [
+        { key: "goals_pct_pos", label: "Goals" },
+        { key: "assists_pct_pos", label: "Assists" },
+        { key: "chances_created_pct_pos", label: "Chances Created" },
+        { key: "fouls_suff_pct_pos", label: "Fouls Won" },
+        { key: "fouls_comm_pct_pos", label: "Pressing / Fouls" }
+    ]
+};
