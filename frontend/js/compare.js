@@ -93,13 +93,17 @@ function renderPlayerCard(slotNumber, player, photoUrl) {
                 }
             </div>
             <div class="profile-info">
-                <div class="profile-name">${player.fullName}</div>
+                <div class="profile-name-row">
+                    <div class="profile-name">${player.fullName}</div>
+                    
+                </div>
+
                 <div class="profile-team">
-                    <img src="${player.teamLogo}" width="18" height="18" />
                     ${player.teamName}
+                    <img src="${player.teamLogo}" class="team-logo" />
                 </div>
                 <div class="profile-meta">
-                    <span class="position-pill">${player.positionAbbreviation}</span>
+                    <span class="position-pill">${formatPosition(player.positionAbbreviation)}</span>
                     <span class="profile-age">${Math.floor(player.age)} yrs</span>
                 </div>
             </div>
@@ -124,3 +128,8 @@ document.querySelectorAll(".player-search-input").forEach(input => {
         searchPlayers(query, slotNumber);
     });
 });
+
+function formatPosition(abbr) {
+    const map = { F: "Forward", M: "Midfielder", D: "Defender", G: "Goalkeeper" };
+    return map[abbr] || abbr;
+}
