@@ -172,16 +172,16 @@ const radarAxes = {
     F: [
         { key: "goals_pct_pos", label: "Goals" },
         { key: "assists_pct_pos", label: "Assists" },
-        { key: "shot_accuracy_pct_pos", label: "Technical Shooting" },
-        { key: "conversion_pct_pos", label: "Efficiency" },
-        { key: "on_target_conv_pct_pos", label: "Composure" }
+        { key: "shot_accuracy_pct_pos", label: "Shot Accuracy" },
+        { key: "conversion_pct_pos", label: "Conversion Fate" },
+        { key: "fouls_suff_pct_pos", label: "Fouls Won" }
     ],
     M: [
         { key: "goals_pct_pos", label: "Goals" },
         { key: "assists_pct_pos", label: "Assists" },
         { key: "chances_created_pct_pos", label: "Chances Created" },
         { key: "fouls_suff_pct_pos", label: "Fouls Won" },
-        { key: "fouls_comm_pct_pos", label: "Pressing / Fouls" }
+        { key: "fouls_comm_pct_pos", label: "Fouls Com." }
     ]
 };
 

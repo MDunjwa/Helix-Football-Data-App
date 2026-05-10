@@ -280,6 +280,7 @@ def get_player(athlete_id):
                 fouls_suff_pct_pos,
                 chances_created,
                 goals_pct_pos,
+                chances_created_pct_pos,
                 assists_pct_pos,
                 shot_accuracy_pct_pos,
                 conversion_pct_pos,
