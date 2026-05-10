@@ -115,12 +115,16 @@ const chartConfig = {
     }
 };
 
+// Switching urls for desktop and codespace
+const API_BASE =
+    window.location.hostname.includes("github.dev")
+        ? "https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev"
+        : "http://127.0.0.1:5000";
+
 async function fetchScatterData(position, x, y) {
 
     const positionParameter = position ? `&position=${position}` : "";
-    const url = `http://127.0.0.1:5000/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
-    // const url = `https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
-
+    const url = `${API_BASE}/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
 
     try {
         const response = await fetch(url);

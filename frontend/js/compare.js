@@ -1,3 +1,9 @@
+// Switching urls for desktop and codespace
+const API_BASE =
+    window.location.hostname.includes("github.dev")
+        ? "https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev"
+        : "http://127.0.0.1:5000";
+
 async function searchPlayers(query, slotNumber) {
 
     try {
@@ -7,7 +13,7 @@ async function searchPlayers(query, slotNumber) {
             return;
         }
         
-        const url = `http://127.0.0.1:5000/api/players/search?q=${query}`;
+        const url = `${API_BASE}/api/players/search?q=${query}`;
         const response = await fetch(url);
         const players = await response.json();
 
@@ -62,7 +68,7 @@ async function selectPlayer(slotNumber, player) {
     document.getElementById(`dropdown-${slotNumber}`).style.display = "none";
 
     // Fetching the player data
-    const response = await fetch(`http://127.0.0.1:5000/api/players/${player.athleteId}`);
+    const response = await fetch(`${API_BASE}/api/players/${player.athleteId}`);
     const playerData = await response.json();
 
     // Storing it 
