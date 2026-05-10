@@ -152,6 +152,18 @@ function updateCharts() {
     const player_1 = selectedPlayers[1];
     const player_2 = selectedPlayers[2];
     if (!player_1 || !player_2) return; 
+
+    // Checking that positions match
+    if (player_1.positionAbbreviation !== player_2.positionAbbreviation) {
+         alert("Select two players from the same position to compare.");
+         return;
+    }
+
+    if (!radarAxes[player_1.positionAbbreviation]) {
+        alert("Radar comparison is available for Forwards and Midfielders only")
+        return;
+    }
+    
     renderRadarChart(player_1, player_2);
 }
 
@@ -172,3 +184,54 @@ const radarAxes = {
         { key: "fouls_comm_pct_pos", label: "Pressing / Fouls" }
     ]
 };
+
+// Rendering the charts
+function renderRadarChart(player_1, player_2) {
+    const chartDom = document.getElementById("radar-chart");
+    const existing = echarts.getInstanceByDom(chartDom);
+    if (existing) existing.dispose();
+    const chart = echarts.init(chartDom);
+
+    const axes = radarAxes[player_1.positionAbbreviation];
+
+    const indicator = axes.map(a => ({ name: a.label, max: 100 }));
+    const player_1_values = axes.map(a => Math.round(player_1[a.key] || 0));
+    const player_2_values = axes.map(a => Math.round(player_2[a.key] || 0));
+
+    const option = {
+        legend: {
+            data: [player_1.fullName, player_2.fullName],
+            bottom: 0,
+            textStyle: { fontSize: 12, color: "#334155" }
+        },
+        radar: {
+            indicator,
+            shape: "polygon",
+            splitNumber: 4,
+            axisName: { color: "#334155", fontSize: 11 },
+            splitLine: { lineStyle: { color: "rgba(51,65,85,0.1)" } },
+            splitArea: { show: false }
+        },
+        series: [{
+            type: "radar",
+            data: [
+                {
+                    value: player_1_values,
+                    name: player_1.fullName,
+                    lineStyle: { color: "#6C91C2", width: 2 },
+                    itemStyle: { color: "#6C91C2" },
+                    areaStyle: { color: "rgba(108,145,194,0.15)" }
+                },
+                {
+                    value: player_2_values,
+                    name: player_2.fullName,
+                    lineStyle: { color: "#E74C3C", width: 2 },
+                    itemStyle: { color: "#E74C3C" },
+                    areaStyle: { color: "rgba(231,76,60,0.15)" }
+                }
+            ]
+        }]
+    };
+
+    chart.setOption(option);
+}

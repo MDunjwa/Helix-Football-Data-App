@@ -6,7 +6,7 @@ const API_BASE =
 
 async function fetchTopScorers() {
     try {
-        const response = await fetch("${API_BASE}/api/stats/top-scorers?limit=15");
+        const response = await fetch(`${API_BASE}/api/stats/top-scorers?limit=15`);
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -21,7 +21,7 @@ async function fetchTopScorers() {
 async function fetchTopAssisters() {
 
     try {
-        const response = await fetch("${API_BASE}/api/stats/top-assisters?limit=15");
+        const response = await fetch(`${API_BASE}/api/stats/top-assisters?limit=15`);
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "assisters");
@@ -36,7 +36,7 @@ async function fetchTopAssisters() {
 async function fetchTopGoalkeepers() {
 
     try {
-        const response = await fetch("${API_BASE}/api/stats/top-goalkeepers?limit=15");
+        const response = await fetch(`${API_BASE}/api/stats/top-goalkeepers?limit=15`);
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "goalkeepers");
