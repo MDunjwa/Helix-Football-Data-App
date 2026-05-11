@@ -173,7 +173,7 @@ const radarAxes = {
         { key: "goals_pct_pos", label: "Goals" },
         { key: "assists_pct_pos", label: "Assists" },
         { key: "shot_accuracy_pct_pos", label: "Shot Accuracy" },
-        { key: "conversion_pct_pos", label: "Conversion Fate" },
+        { key: "conversion_pct_pos", label: "Conversion Rate" },
         { key: "fouls_suff_pct_pos", label: "Fouls Won" }
     ],
     M: [
