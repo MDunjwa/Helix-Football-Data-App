@@ -57,9 +57,49 @@ section:not(:last-child) {
 }
 
 #about-content h4 {
-    font-size: 16px;
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 8px;
     color: var(--text-primary);
+
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+}
+
+/* Tools */
+
+.tool img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    transition: all 0.2s ease;
+}
+
+.tool:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
 }
