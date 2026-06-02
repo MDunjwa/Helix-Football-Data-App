@@ -58,7 +58,7 @@
     /* width: auto;
     margin: 0 auto; */
     background: white;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     /* overflow: hidden; */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
@@ -136,7 +136,7 @@
     font-weight: 400;
     text-align: left;
     padding: 8px 10px;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     position: absolute;
     z-index: 10;
     bottom: 125%;

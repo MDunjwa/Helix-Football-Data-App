@@ -106,7 +106,7 @@ function renderTable(data, type) { //data is my array, type is the type of stat 
                 <td>${player.appearances_value}</td>
                 <td>${player.totalShots_value ?? "—"}</td>
                 <td>${player.shot_accuracy != null ? (player.shot_accuracy).toFixed(1) + "%" : "—"}</td>
-                <td>${player.conversion_rate != null ? (player.conversion_rate * 100).toFixed(1) + "%" : "—"}</td>
+                <td>${player.conversion_rate != null ? (player.conversion_rate).toFixed(1) + "%" : "—"}</td>
                 <td>${player.citizenship}</td>
             </tr>
         `).join("");        
