@@ -186,7 +186,7 @@ function updateCharts() {
         alert("Radar comparison is available for Forwards and Midfielders only")
         return;
     }
-    
+    document.getElementById("charts-container").style.display = "block";
     renderRadarChart(player_1, player_2);
 }
 

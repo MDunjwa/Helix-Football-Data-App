@@ -47,6 +47,57 @@
     margin-bottom: 32px;
 }
 
+/* Player position selection */
+#position-selector {
+    margin-bottom: 32px;
+}
+
+.position-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 150px;
+}
+
+
+.position-btn {
+    background: #F1F5F9;
+    border: 1px solid transparent;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.position-btn:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+.position-btn.active {
+    background: #E74C3C;
+    border-color: #E74C3C;
+    color: white;
+}
+
+#position-selector p {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 12px;
+}
+
+.position-btn {
+    display: flex;
+    align-items: center;
+}
+
+.position-btn i {
+    margin-left: auto;
+}
 /* Search bar */
 
 .player-slot {
