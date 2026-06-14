@@ -227,6 +227,7 @@ def search_players():
     print(f"DB_PATH: {DB_PATH}")
     print(f"DB exists: {os.path.exists(DB_PATH)}")
     q = request.args.get('q', type=str)
+    position = request.args.get('position', type=str)
     
     # Guard against empty searches or too many results
     if not q or len(q) < 2:
@@ -245,9 +246,16 @@ def search_players():
                 age
             FROM players
             WHERE fullName LIKE ?
-            LIMIT 8
         """
-        df = pd.read_sql_query(query, conn, params=[f"%{q}%"])
+        params = [f"%{q}%"]
+
+        if position:
+            query += " AND positionAbbreviation = ?"
+            params.append(position)
+
+        query += " LIMIT 8"      
+
+        df = pd.read_sql_query(query, conn, params=params)  
         conn.close()
         return jsonify(df.to_dict('records'))
     

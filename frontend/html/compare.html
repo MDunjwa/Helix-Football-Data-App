@@ -64,15 +64,27 @@
             <!-- Main content -->
             <div id="main-content" class="flex-grow-1">
 
-                <div id="compare-container">
+                <div id="compare-container">  
+                    
                     <!-- Text at the top -->
                     <div id="compare-header">
                         <h2>Player Comparison</h2>
                         <p>Compare attacking impact and creative output side-by-side.<em> Available for forwards and midfielders only</em></p>
                     </div>
 
+                    <!-- Position selector -->
+                    <div id="position-selector">
+                        <p>Select a position to compare:</p>
+                        <div class="position-buttons">
+                            <button class="position-btn" data-position="F">Forwards</button>
+                            <button class="position-btn" data-position="M">Midfielders</button>
+                            <button class="position-btn" data-position="D">Defenders</button>
+                            <button class="position-btn" data-position="G">Goalkeepers</button>
+                        </div>
+                    </div>  
+
                     <!-- Player profiles -->
-                    <div id="player-slots">
+                    <div id="player-slots" style="display:none">
 
                         <div id="profile-1" class="player-slot">
                             <div class="search-box" id="search-box-1">
@@ -111,7 +123,7 @@
                     </div>
 
                     <!-- Radar chart and lollipop -->
-                     <div id="charts-container">
+                     <div id="charts-container" style="display:none">
 
                         <div id="radar-chart">
 

@@ -13,7 +13,10 @@ async function searchPlayers(query, slotNumber) {
             return;
         }
         
-        const url = `${API_BASE}/api/players/search?q=${query}`;
+        // Guarding against no selected position
+        if (!selectedPosition) return;
+
+        const url = `${API_BASE}/api/players/search?q=${query}&position=${selectedPosition}`;
         const response = await fetch(url);
         const players = await response.json();
 
@@ -54,6 +57,26 @@ async function searchPlayers(query, slotNumber) {
                 
     }
 }
+
+// Where the user selects which position to compare
+let selectedPosition = null;
+
+document.querySelectorAll(".position-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+        selectedPosition = this.dataset.position;
+
+        document.querySelectorAll(".position-btn").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+
+        document.getElementById("player-slots").style.display = "flex";
+        // document.getElementById("position-selector").style.display = "none";
+
+        selectedPlayers[1] = null;
+        selectedPlayers[2] = null;
+        clearSlot(1);
+        clearSlot(2);
+    });
+});
 
 document.addEventListener("click", function(e) {
     if (!e.target.closest(".search-box")) {
