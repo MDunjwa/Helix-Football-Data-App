@@ -121,24 +121,27 @@ function renderPlayerCard(slotNumber, player, photoUrl) {
             <button class="clear-btn" onclick="clearSlot(${slotNumber})">×</button>
             
             <div class="profile-left">
-            <div class="photo-container">
-                ${photoUrl 
-                    ? `<img src="${photoUrl}" class="profile-photo" />`
-                    : `<div class="profile-photo-placeholder"><i class="bi bi-person"></i></div>`
-                }
-                <img src="${player.teamLogo}" class="team-logo" />
+                <div class="photo-container">
+                    ${photoUrl 
+                        ? `<img src="${photoUrl}" class="profile-photo" />`
+                        : `<div class="profile-photo-placeholder"><i class="bi bi-person"></i></div>`
+                    }
+                    <img src="${player.teamLogo}" class="team-logo" />
+                </div>
             </div>
 
-        <div class="profile-right">
+            <div class="profile-right">
 
-            <div class="profile-name">${player.fullName}</div>
-            <div class="profile-team">
-                <span>${player.teamName}</span>
-            </div>
+                <div class="profile-name">${player.fullName}</div>
+                <div class="profile-team">
+                    <span>${player.teamName}</span>
+                </div>
 
-            <div class="profile-meta">
-                <span class="profile-age">${formatPosition(player.positionAbbreviation)}</span>
-                <span class="profile-age">${Math.floor(player.age)} yrs</span>
+                <div class="profile-meta">
+                    <span class="profile-age">${formatPosition(player.positionAbbreviation)}</span>
+                    <span class="profile-age">${Math.floor(player.age)} yrs</span>
+                </div>
+
             </div>
         </div>
     `;
