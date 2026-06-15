@@ -117,28 +117,28 @@ function renderPlayerCard(slotNumber, player, photoUrl) {
     const card = document.getElementById(`card-${slotNumber}`);
 
     card.innerHTML = `
-        <div class="profile-card">
+        <div class="profile-card" style="--team-color: ${player.teamPrimaryColor}">
             <button class="clear-btn" onclick="clearSlot(${slotNumber})">×</button>
-            <div class="profile-photo-wrapper">
+            
+            <div class="profile-left">
+            <div class="photo-container">
                 ${photoUrl 
                     ? `<img src="${photoUrl}" class="profile-photo" />`
                     : `<div class="profile-photo-placeholder"><i class="bi bi-person"></i></div>`
                 }
+                <img src="${player.teamLogo}" class="team-logo" />
             </div>
-            <div class="profile-info">
-                <div class="profile-name-row">
-                    <div class="profile-name">${player.fullName}</div>
-                    
-                </div>
 
-                <div class="profile-team">
-                    ${player.teamName}
-                    <img src="${player.teamLogo}" class="team-logo" />
-                </div>
-                <div class="profile-meta">
-                    <span class="position-pill">${formatPosition(player.positionAbbreviation)}</span>
-                    <span class="profile-age">${Math.floor(player.age)} yrs</span>
-                </div>
+        <div class="profile-right">
+
+            <div class="profile-name">${player.fullName}</div>
+            <div class="profile-team">
+                <span>${player.teamName}</span>
+            </div>
+
+            <div class="profile-meta">
+                <span class="profile-age">${formatPosition(player.positionAbbreviation)}</span>
+                <span class="profile-age">${Math.floor(player.age)} yrs</span>
             </div>
         </div>
     `;
