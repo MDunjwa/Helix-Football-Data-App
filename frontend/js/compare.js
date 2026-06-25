@@ -190,7 +190,9 @@ function updateCharts() {
         return;
     }
     document.getElementById("charts-container").style.display = "block";
+    renderComparisonTable(player_1, player_2);
     renderRadarChart(player_1, player_2);
+    
 }
 
 // The axes of my radars for midfielders and forwards
@@ -260,4 +262,60 @@ function renderRadarChart(player_1, player_2) {
     };
 
     chart.setOption(option);
+}
+
+// Table
+
+const rawAxes = {
+  F: [
+    { key: "totalGoals_value", label: "Goals" },
+    { key: "goalAssists_value", label: "Assists" },
+    { key: "totalShots_value", label: "Shots" },
+    { key: "chances_created", label: "Chances Created" },
+    { key: "foulsSuffered_value", label: "Fouls Won" },
+    { key: "foulsCommitted_value", label: "Fouls Committed" },
+    { key: "appearances_value", label: "Apps" }
+  ],
+
+  M: [
+    { key: "totalGoals_value", label: "Goals" },
+    { key: "goalAssists_value", label: "Assists" },
+    { key: "chances_created", label: "Chances Created" },
+    { key: "totalShots_value", label: "Shots" },
+    { key: "foulsSuffered_value", label: "Fouls Won" },
+    { key: "foulsCommitted_value", label: "Fouls Committed" },
+    { key: "appearances_value", label: "Apps" }
+  ]
+};
+
+function renderComparisonTable(player1, player2) {
+    const tableContainer = document.getElementById("stats-table-container");
+    const tbody = document.getElementById("stats-table-body");
+
+    const axes = rawAxes[player1.positionAbbreviation];
+
+    // Show container
+    tableContainer.style.display = "block";
+
+    // Set headers
+    document.getElementById("p1-name").textContent = player1.fullName;
+    document.getElementById("p2-name").textContent = player2.fullName;
+
+    // Clear old rows
+    tbody.innerHTML = "";
+
+    axes.forEach(axis => {
+        const v1 = Math.round(player1[axis.key] ?? 0);
+        const v2 = Math.round(player2[axis.key] ?? 0);
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td class="text-start fw-semibold">${axis.label}</td>
+            <td>${v1}</td>
+            <td>${v2}</td>
+        `;
+
+        tbody.appendChild(row);
+    });
 }

@@ -10,16 +10,20 @@
 
 #charts-container {
     display: flex;
-    /* gap: 24px; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 #radar-chart {
-    flex: 1; 
+    flex: 1;
+    width: 600px;
     height: 500px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     padding: 32px;
+    flex: 0 0 auto;
 }
 
 #lollipop-chart {
@@ -163,7 +167,7 @@
 .card-wrapper {
     width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: center;
 }
 
 .profile-card {
@@ -283,4 +287,27 @@
     padding: 2px;
 
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Table */
+#stats-table-container {
+    margin-bottom: 24px;
+}
+
+#stats-table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    font-size: 13px;
+}
+
+#stats-table thead {
+    background: #F8FAFC;
+    font-weight: 600;
+}
+
+#stats-table th,
+#stats-table td {
+    padding: 10px 12px;
 }
