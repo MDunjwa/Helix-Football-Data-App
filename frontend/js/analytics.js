@@ -1,3 +1,5 @@
+let selectedLeague = "ENG.1";
+
 // Chart clicking history for tab switching
 const selectedCharts = {};
 
@@ -124,7 +126,7 @@ const API_BASE =
 async function fetchScatterData(position, x, y) {
 
     const positionParameter = position ? `&position=${position}` : "";
-    const url = `${API_BASE}/api/stats/scatter?x=${x}&y=${y}${positionParameter}`;
+    const url = `${API_BASE}/api/stats/scatter?x=${x}&y=${y}&league=${selectedLeague}${positionParameter}`;
 
     try {
         const response = await fetch(url);
@@ -310,3 +312,10 @@ function renderChartSelector(tabName) {
         });
     });
 }
+
+// League dif
+document.getElementById("league-select-dd").addEventListener("change", function () {
+    selectedLeague = this.value;
+    const activeTab = document.querySelector(".tab-btn.active").dataset.tab;
+    loadTab(activeTab);
+});

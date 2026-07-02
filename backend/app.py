@@ -201,6 +201,8 @@ def goalkeepers():
 @app.route('/api/stats/scatter')
 def scatter():
 
+    league = request.args.get("league", type=str)
+
     allowed_columns = [
         "totalGoals_value", "goalAssists_value", "totalShots_value",
         "shot_accuracy", "shotsOnTarget_value", "conversion_rate", "on_target_conversion_rate",
@@ -245,12 +247,22 @@ def scatter():
 
         if x_axis == "save_percentage" or y_axis == "save_percentage":
             query += " AND shotsFaced_value >= 30"
+
+        # League differentiation
+        params = []
+
+        if not league:
+            league = "ENG.1"
+
+        if league:
+            query += " AND league = ?"
+            params.append(league)        
         
         if position:
             query += " AND positionAbbreviation = ?"
-            df = pd.read_sql_query(query, conn, params=[position])
-        else:
-            df = pd.read_sql_query(query, conn)
+            params.append(position)
+
+        df = pd.read_sql_query(query, conn, params=params)
 
         conn.close()
         df = df.where(pd.notnull(df), None)
