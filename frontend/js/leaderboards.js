@@ -1,3 +1,5 @@
+let selectedLeague = "ENG.1";
+
 // Switching urls for desktop and codespace
 const API_BASE =
     window.location.hostname.includes("github.dev")
@@ -6,7 +8,7 @@ const API_BASE =
 
 async function fetchTopScorers() {
     try {
-        const response = await fetch(`${API_BASE}/api/stats/top-scorers?limit=15`);
+        const response = await fetch(`${API_BASE}/api/stats/top-scorers?limit=15&league=${selectedLeague}`);
         const data = await response.json();
         console.log("Data received:", data)
         renderTable(data, "scorers");
@@ -248,29 +250,12 @@ document.querySelectorAll(".tab-btn").forEach(button =>  {
         );
     })
 
+document.getElementById("league-select").addEventListener("change", function() {
+    selectedLeague = this.value;
 
-// function createChart(names, goals) {
+    const activeTab = document.querySelector(".tab-btn.active").dataset.tab;
 
-//     // Initialising ECharts
-//     const chartDom = document.getElementById("top_scorers")
-//     const myChart = echarts.init(chartDom)
-
-//     // My chart configuration
-//     const option = {
-//         xAxis: {
-//             type: "category",
-//             data: names
-//         },
-//         yAxis: {
-//             type: "value",
-//         },
-//         series: [{
-//             type: "bar",
-//             data: goals
-//         }]
-//     }
-
-//     // Applying the configuration
-//     myChart.setOption(option)
-    
-// }
+    if (activeTab === "scorers") fetchTopScorers();
+    if (activeTab === "assisters") fetchTopAssisters();
+    if (activeTab === "goalkeepers") fetchTopGoalkeepers();
+});
