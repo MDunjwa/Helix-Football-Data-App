@@ -68,12 +68,12 @@ def top_scorers():
         # League differentiation
         params = []
 
+        if not league:
+            league = "ENG.1"
+
         if league:
             query += " AND league = ?"
             params.append(league)
-
-        if not league:
-            league = "ENG.1"
 
         if position:
             query += " AND positionAbbreviation = ?"
@@ -119,15 +119,26 @@ def assisters():
             FROM players
             WHERE goalAssists_value > 0               
             """
+        
+        # League differentiation
+        params = []
+
+        if not league:
+            league = "ENG.1"
+
+        if league:
+            query += " AND league = ?"
+            params.append(league)
+
         if position:
-            query += f" AND positionAbbreviation = ?"
-            query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
-            df = pd.read_sql_query(query, conn, params=[position])
-        
-        else:
-            query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
-            df = pd.read_sql_query(query, conn)
-        
+            query += " AND positionAbbreviation = ?"
+            params.append(position)
+
+        query += " ORDER BY goalAssists_value DESC LIMIT ?"
+
+        params.append(limit)  
+        df = pd.read_sql_query(query, conn, params=params)    
+    
         conn.close()
         
         df = df.where(pd.notnull(df), None)
@@ -162,8 +173,21 @@ def goalkeepers():
             WHERE positionAbbreviation = "G" AND appearances_value >= 15
             """
 
-        query += f" ORDER BY save_percentage DESC LIMIT {limit}"                
-        df = pd.read_sql_query(query, conn)
+        # League differentiation
+        params = []
+
+        if not league:
+            league = "ENG.1"
+
+        if league:
+            query += " AND league = ?"
+            params.append(league)
+
+        query += " ORDER BY save_percentage DESC LIMIT ?"
+
+        params.append(limit)  
+        df = pd.read_sql_query(query, conn, params=params)      
+        
         conn.close()
         
         df = df.where(pd.notnull(df), None)
