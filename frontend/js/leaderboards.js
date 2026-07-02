@@ -250,7 +250,7 @@ document.querySelectorAll(".tab-btn").forEach(button =>  {
         );
     })
 
-document.getElementById("league-select").addEventListener("change", function() {
+document.getElementById("league-select-dd").addEventListener("change", function() {
     selectedLeague = this.value;
 
     const activeTab = document.querySelector(".tab-btn.active").dataset.tab;

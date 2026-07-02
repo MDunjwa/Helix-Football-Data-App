@@ -84,17 +84,6 @@ def top_scorers():
         params.append(limit)  
         df = pd.read_sql_query(query, conn, params=params)      
         
-        # For when position is specified, appending to the query so that I filter to only that position
-        # if position:
-        #     query += f" AND positionAbbreviation = ?"
-        #     query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
-        #     df = pd.read_sql_query(query, conn, params=[position])
-        
-        # else:
-        #     query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
-        #     df = pd.read_sql_query(query, conn)
-        #     print("Scorers columns:", df.columns)
-        
         conn.close()
         
         df = df.where(pd.notnull(df), None)

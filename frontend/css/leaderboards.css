@@ -164,3 +164,59 @@
 .team-name {
     font-size: 0.9rem;
 }
+
+/* League selection dropdown */
+/* .league-selection {
+    max-width: 200px;
+    padding: 8px 14px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #334155;
+    background: #F1F5F9;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    appearance: none;
+
+    padding-right: 32px;
+}
+
+.league-selection:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+.league-selection:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);
+} */
+ .league-selection {
+    background: #F1F5F9;
+    border: 1px solid transparent;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.league-selection:hover {
+    background-color: #E2E8F0;
+}
+
+.league-selection:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
