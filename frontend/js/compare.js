@@ -189,7 +189,7 @@ function updateCharts() {
         alert("Radar comparison is available for Forwards and Midfielders only")
         return;
     }
-    document.getElementById("charts-container").style.display = "block";
+    document.getElementById("comparison-layout").style.display = "flex";
     renderComparisonTable(player_1, player_2);
     renderRadarChart(player_1, player_2);
     
@@ -290,7 +290,7 @@ const rawAxes = {
 
 function renderComparisonTable(player1, player2) {
     const tableContainer = document.getElementById("stats-table-container");
-    const tbody = document.getElementById("stats-table-body");
+    // const tbody = document.getElementById("stats-table-body");
 
     const axes = rawAxes[player1.positionAbbreviation];
 
@@ -298,24 +298,46 @@ function renderComparisonTable(player1, player2) {
     tableContainer.style.display = "block";
 
     // Set headers
-    document.getElementById("p1-name").textContent = player1.fullName;
-    document.getElementById("p2-name").textContent = player2.fullName;
+    // document.getElementById("p1-name").textContent = player1.fullName;
+    // document.getElementById("p2-name").textContent = player2.fullName;
+    const headerCells = axes.map(a => `<th>${a.label}</th>`).join("");
+    const row1 = axes.map(a => `<td class="val-blue">${Math.round(player1[a.key] ?? 0)}</td>`).join("");
+    const row2 = axes.map(a => `<td class="val-red">${Math.round(player2[a.key] ?? 0)}</td>`).join("");
+
+    document.getElementById("stats-table").innerHTML = `
+        <thead>
+            <tr>
+                <th class="left">Player</th>
+                ${headerCells}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="player-name">${player1.fullName}<span class="player-meta">${player1.teamName}</span></td>
+                ${row1}
+            </tr>
+            <tr>
+                <td class="player-name">${player2.fullName}<span class="player-meta">${player2.teamName}</span></td>
+                ${row2}
+            </tr>
+        </tbody>
+    `;
 
     // Clear old rows
-    tbody.innerHTML = "";
+    // tbody.innerHTML = "";
 
-    axes.forEach(axis => {
-        const v1 = Math.round(player1[axis.key] ?? 0);
-        const v2 = Math.round(player2[axis.key] ?? 0);
+    // axes.forEach(axis => {
+    //     const v1 = Math.round(player1[axis.key] ?? 0);
+    //     const v2 = Math.round(player2[axis.key] ?? 0);
 
-        const row = document.createElement("tr");
+    //     const row = document.createElement("tr");
 
-        row.innerHTML = `
-            <td class="text-start fw-semibold">${axis.label}</td>
-            <td>${v1}</td>
-            <td>${v2}</td>
-        `;
+    //     row.innerHTML = `
+    //         <td class="text-start fw-semibold">${axis.label}</td>
+    //         <td>${v1}</td>
+    //         <td>${v2}</td>
+    //     `;
 
-        tbody.appendChild(row);
-    });
+    //     tbody.appendChild(row);
+    // });
 }
