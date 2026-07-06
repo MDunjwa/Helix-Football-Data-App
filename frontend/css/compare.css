@@ -290,8 +290,12 @@
 }
 
 /* Table */
+
 #stats-table-container {
     margin-bottom: 24px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #stats-table {
@@ -300,6 +304,8 @@
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     font-size: 13px;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 #stats-table thead {
@@ -307,16 +313,43 @@
     font-weight: 600;
 }
 
-#stats-table th,
-#stats-table td {
-    padding: 5px 12px;
+#stats-table thead tr {
+    border-bottom: 2px solid rgba(51,65,85,0.1);
 }
+
+#stats-table th {
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    text-align: center;
+}
+
+#stats-table th.left { text-align: left; }
+
+#stats-table td {
+    padding: 3px 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(51,65,85,0.06);
+    color: var(--text-secondary);
+}
+
+#stats-table td.player-name {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+#stats-table .val-blue { color: #6C91C2; font-weight: 500; }
+#stats-table .val-red  { color: #E74C3C; font-weight: 500; }
 
 /* Table and chart layout */
 #comparison-layout {
     display: flex;
     gap: 32px;
-    /* align-items: flex-start; */
     margin-top: 32px;
     flex-direction: column;
 }
