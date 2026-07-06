@@ -356,7 +356,10 @@ def get_player(athlete_id):
                 conversion_pct_pos,
                 on_target_conv_pct_pos,
                 fouls_suff_pct_pos,
-                fouls_comm_pct_pos
+                foulsSuffered_value,
+                foulsCommitted_value,
+                fouls_comm_pct_pos,
+                totalShots_value
             FROM players
             WHERE athleteId = ?
         """
