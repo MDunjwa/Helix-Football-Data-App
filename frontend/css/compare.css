@@ -1,11 +1,13 @@
 #player-slots {
     display: flex;
+    justify-content: center;
     gap: 24px;
-    margin-bottom: 32px;
+    max-width: 900px;
+    margin: 0 auto 24px;
 }
 
 #player-slots > div {
-    flex: 1; 
+    flex: 0 1 380px;
 }
 
 
@@ -76,10 +78,10 @@
 .position-btn i {
     margin-left: auto;
 }
-/* Search bar */
 
+/* Search bar */
 .player-slot {
-    flex: 1;
+    flex: 0 1 380px;
     position: relative;
 }
 
