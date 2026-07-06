@@ -28,8 +28,6 @@ def get_players():
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql_query("SELECT * FROM players LIMIT 10", conn)
     conn.close()
-    df = df.where(pd.notnull(df), None)
-    df = df.where(pd.notnull(df), None)
     return jsonify(df.to_dict('records'))
 
 # For accessing top scorers
@@ -38,8 +36,8 @@ def top_scorers():
 
     # Getting query parameters (with defaults)
     limit = request.args.get('limit', 10, type=int)
-    position = request.args.get('position', type=str)  # Optional: F, M, D, G
     league = request.args.get('league', type=str)
+    position = request.args.get('position', type=str)  # Optional: F, M, D, G
     
     try:
         conn = sqlite3.connect(DB_PATH)
@@ -65,28 +63,22 @@ def top_scorers():
             WHERE totalGoals_value > 0
         """
         
-        # League differentiation
         params = []
-
-        if not league:
-            league = "ENG.1"
 
         if league:
             query += " AND league = ?"
             params.append(league)
-
+    
         if position:
-            query += " AND positionAbbreviation = ?"
+            query += f" AND positionAbbreviation = ?"
             params.append(position)
 
-        query += " ORDER BY totalGoals_value DESC LIMIT ?"
-
-        params.append(limit)  
-        df = pd.read_sql_query(query, conn, params=params)      
+        query += f" ORDER BY totalGoals_value DESC LIMIT {limit}"
+        params.append(limit)
         
-        conn.close()
+        df = pd.read_sql_query(query, conn, params=params)
         
-        df = df.where(pd.notnull(df), None)
+        conn.close()        
         return jsonify(df.to_dict('records'))
     
     except Exception as e:
@@ -98,7 +90,6 @@ def top_scorers():
 def assisters():
     limit = request.args.get('limit', 10, type=int)
     position = request.args.get('position', type=str)
-    league = request.args.get('league', type=str)
 
     try:
         conn = sqlite3.connect(DB_PATH)
@@ -119,29 +110,17 @@ def assisters():
             FROM players
             WHERE goalAssists_value > 0               
             """
-        
-        # League differentiation
-        params = []
-
-        if not league:
-            league = "ENG.1"
-
-        if league:
-            query += " AND league = ?"
-            params.append(league)
-
         if position:
-            query += " AND positionAbbreviation = ?"
-            params.append(position)
-
-        query += " ORDER BY goalAssists_value DESC LIMIT ?"
-
-        params.append(limit)  
-        df = pd.read_sql_query(query, conn, params=params)    
-    
+            query += f" AND positionAbbreviation = ?"
+            query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
+            df = pd.read_sql_query(query, conn, params=[position])
+        
+        else:
+            query += f" ORDER BY goalAssists_value DESC LIMIT {limit}"
+            df = pd.read_sql_query(query, conn)
+        
         conn.close()
         
-        df = df.where(pd.notnull(df), None)
         return jsonify(df.to_dict('records'))
     
     except Exception as e:
@@ -152,7 +131,6 @@ def assisters():
 @app.route('/api/stats/top-goalkeepers')
 def goalkeepers():
     limit = request.args.get('limit', 10, type=int)
-    league = request.args.get('league', type=str)
 
     try:
         conn = sqlite3.connect(DB_PATH)
@@ -173,24 +151,10 @@ def goalkeepers():
             WHERE positionAbbreviation = "G" AND appearances_value >= 15
             """
 
-        # League differentiation
-        params = []
-
-        if not league:
-            league = "ENG.1"
-
-        if league:
-            query += " AND league = ?"
-            params.append(league)
-
-        query += " ORDER BY save_percentage DESC LIMIT ?"
-
-        params.append(limit)  
-        df = pd.read_sql_query(query, conn, params=params)      
-        
+        query += f" ORDER BY save_percentage DESC LIMIT {limit}"                
+        df = pd.read_sql_query(query, conn)
         conn.close()
         
-        df = df.where(pd.notnull(df), None)
         return jsonify(df.to_dict('records'))
     
     except Exception as e:
@@ -200,8 +164,6 @@ def goalkeepers():
 # Goalkeepers endpoint
 @app.route('/api/stats/scatter')
 def scatter():
-
-    league = request.args.get("league", type=str)
 
     allowed_columns = [
         "totalGoals_value", "goalAssists_value", "totalShots_value",
@@ -247,38 +209,19 @@ def scatter():
 
         if x_axis == "save_percentage" or y_axis == "save_percentage":
             query += " AND shotsFaced_value >= 30"
-
-        # League differentiation
-        params = []
-
-        if not league:
-            league = "ENG.1"
-
-        if league:
-            query += " AND league = ?"
-            params.append(league)        
         
         if position:
             query += " AND positionAbbreviation = ?"
-            params.append(position)
-
-        df = pd.read_sql_query(query, conn, params=params)
+            df = pd.read_sql_query(query, conn, params=[position])
+        else:
+            df = pd.read_sql_query(query, conn)
 
         conn.close()
-        df = df.where(pd.notnull(df), None)
-        import json
-        return app.response_class(
-            response=df.to_json(orient='records'),
-            mimetype='application/json'
-        )
-    
+        return jsonify(df.to_dict('records'))
+
     except Exception as e:
         print(f"SCATTER ERROR: {e}")
-        import json
-        return app.response_class(
-            response=df.to_json(orient='records'),
-            mimetype='application/json'
-        )
+        return jsonify({"error": str(e)}), 500
 
 # Compare endpoints
 
@@ -318,7 +261,6 @@ def search_players():
 
         df = pd.read_sql_query(query, conn, params=params)  
         conn.close()
-        df = df.where(pd.notnull(df), None)
         return jsonify(df.to_dict('records'))
     
     except Exception as e:
@@ -356,7 +298,10 @@ def get_player(athlete_id):
                 conversion_pct_pos,
                 on_target_conv_pct_pos,
                 fouls_suff_pct_pos,
-                fouls_comm_pct_pos
+                fouls_comm_pct_pos,
+                totalShots_value,
+                foulsSuffered_value,
+                foulsCommitted_value
             FROM players
             WHERE athleteId = ?
         """
@@ -366,7 +311,6 @@ def get_player(athlete_id):
         if df.empty:
             return jsonify({"error": "Player not found"}), 404
             
-        df = df.where(pd.notnull(df), None)
         return jsonify(df.to_dict('records')[0])
     
     except Exception as e:
