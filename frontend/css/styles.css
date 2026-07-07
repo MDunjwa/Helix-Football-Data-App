@@ -42,6 +42,17 @@ h1, h2, h3 {
     letter-spacing: 0.05em;
 }
 
+.logo-x {
+    color: #E74C3C;
+    /* font-family: 'Georgia', cursive; */
+    /* font-style: italic; */
+}
+
+.logo-heli {
+  /* font-family: "Georgia", cursive; */
+  
+}
+
 /* SIDEBAR */
 
 .custom-sidebar {
