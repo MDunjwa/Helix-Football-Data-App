@@ -45,12 +45,14 @@ h1, h2, h3 {
 /* SIDEBAR */
 
 .custom-sidebar {
-    min-height: 100vh;
     width: 250px;
     background-color: var(--ui-structure); 
     display: flex; /* enabling flexbox layoutc */
     flex-direction: column; /* ensuring children are layed out vertically */
-    flex-shrink: 0; /* preventing sidebar doesn't shrink if main content becomes too large */    
+    flex-shrink: 0; /* preventing sidebar doesn't shrink if main content becomes too large */   
+    height: 100vh;
+    position: sticky;
+    top: 0; 
 }
 
 /* Nav link default state */
@@ -81,11 +83,15 @@ h1, h2, h3 {
     color: var(--text-secondary);
 }
 
+body {
+    background-color: var(--bg-base);
+}
+
 /* Hero section */
 
 #hero {
     background-color: var(--text-primary);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
     align-items: stretch;
