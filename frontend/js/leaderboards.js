@@ -2,9 +2,9 @@ let selectedLeague = "ENG.1";
 
 // Switching urls for desktop and codespace
 const API_BASE =
-    window.location.hostname.includes("github.dev")
-        ? "https://animated-tribble-5gxr576q5x7vf7767-5000.app.github.dev"
-        : "http://127.0.0.1:5000";
+    window.location.hostname === '127.0.0.1'
+        ? 'http://127.0.0.1:5000'
+        : 'https://helix-r4va.onrender.com';
 
 async function fetchTopScorers() {
     try {

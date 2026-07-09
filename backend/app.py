@@ -16,37 +16,58 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'helix_football_data.db')
 
-print(f"Database path: {DB_PATH}")
-
 # Just testing flask functionality
 @app.route('/api/test')
 def test():
     return jsonify({"message": "Working!"})
 
-# Homepage
-print("INDEX PATH:", os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend', 'html')))
+# Index route
 @app.route('/')
 def index():
+    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
     return send_from_directory(
-        os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend', 'html')),
-        'index.html'
+        os.path.join(root_dir, 'frontend', 'html'), 'index.html'
     )
-# Serve ALL frontend files (css, js, other html pages)
-@app.route('/<path:filename>')
-def static_files(filename):
+# Other pages
+@app.route('/<page>.html')
+def serve_page(page):
+    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
     return send_from_directory(
-        os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend')),
-        filename
+        os.path.join(root_dir, 'frontend', 'html'), f'{page}.html'
+    )
+# CSS
+@app.route('/css/<path:filename>')
+def serve_css(filename):
+    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
+    return send_from_directory(
+        os.path.join(root_dir, 'frontend', 'css'), filename
+    )
+# JS
+@app.route('/js/<path:filename>')
+def serve_js(filename):
+    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
+    return send_from_directory(
+        os.path.join(root_dir, 'frontend', 'js'), filename
+    )
+# Media
+@app.route('/media/<path:filename>')
+def serve_media(filename):
+    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
+    return send_from_directory(
+        os.path.join(root_dir, 'media'), filename
     )
 
-@app.route('/debug')
-def debug():
-    import os
-    base = os.path.abspath(os.path.join(BASE_DIR, '..'))
+@app.route('/debug-path')
+def debug_path():
+    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
     return {
-        "base_dir": base,
-        "files": os.listdir(base)
+        "BASE_DIR": BASE_DIR,
+        "ROOT_DIR": root_dir,
+        "frontend_exists": os.path.exists(os.path.join(root_dir, 'frontend')),
+        "html_exists": os.path.exists(os.path.join(root_dir, 'frontend', 'html')),
+        "index_exists": os.path.exists(os.path.join(root_dir, 'frontend', 'html', 'index.html')),
     }
+
 # For accessing players
 @app.route('/api/players')
 def get_players():
