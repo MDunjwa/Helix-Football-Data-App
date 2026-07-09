@@ -3,6 +3,7 @@ from flask_cors import CORS
 import sqlite3
 import pandas as pd
 import os
+from flask import send_from_directory
 
 # Creating a flask app instance
 app = Flask(__name__)
@@ -22,6 +23,30 @@ print(f"Database path: {DB_PATH}")
 def test():
     return jsonify({"message": "Working!"})
 
+# Homepage
+print("INDEX PATH:", os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend', 'html')))
+@app.route('/')
+def index():
+    return send_from_directory(
+        os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend', 'html')),
+        'index.html'
+    )
+# Serve ALL frontend files (css, js, other html pages)
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory(
+        os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend')),
+        filename
+    )
+
+@app.route('/debug')
+def debug():
+    import os
+    base = os.path.abspath(os.path.join(BASE_DIR, '..'))
+    return {
+        "base_dir": base,
+        "files": os.listdir(base)
+    }
 # For accessing players
 @app.route('/api/players')
 def get_players():
