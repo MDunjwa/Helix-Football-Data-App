@@ -12,8 +12,8 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 # Database absolute path setup
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_PATH = os.path.join(BASE_DIR, 'data', 'processed', 'helix_football_data.db')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'helix_football_data.db')
 
 print(f"Database path: {DB_PATH}")
 
@@ -28,7 +28,6 @@ def get_players():
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql_query("SELECT * FROM players LIMIT 10", conn)
     conn.close()
-    df = df.where(pd.notnull(df), None)
     df = df.where(pd.notnull(df), None)
     return jsonify(df.to_dict('records'))
 
@@ -273,12 +272,8 @@ def scatter():
         )
     
     except Exception as e:
-        print(f"SCATTER ERROR: {e}")
-        import json
-        return app.response_class(
-            response=df.to_json(orient='records'),
-            mimetype='application/json'
-        )
+            print(f"SCATTER ERROR: {e}")
+            return jsonify({"error": str(e)}), 500
 
 # Compare endpoints
 

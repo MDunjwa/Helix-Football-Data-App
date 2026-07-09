@@ -12,5 +12,4 @@ myenv/
 .ipynb_checkpoints/
 
 # Large processed data files
-data/processed/*.db
 data/processed/*.csv
